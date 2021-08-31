@@ -1,7 +1,7 @@
 # How to install Python and R in Jupyter?
 
 - [Case 1: You have not installed Python before](#case_1)
-  * [I. Installing Anaconda](#anconda)
+  * [I. Installing Anaconda](#anaconda)
     + [A. Create a new environment in Anaconda to run R and Python](#environment)
     + [B. Install Ikernel to run R in base (default) environment (not creating a new environment)](#ikernel)
 - [Case 2: You have installed Python or Anaconda before](#case_2)
@@ -54,7 +54,7 @@ After installing Anaconda, we will configure the necessary options to be able to
 <br /> Python script
 <img src="Pyscript.png">
 
-### B. Install Ikernel to run R in base (default) environment (not creating a new environment)
+### <a name="ikernel"></a> B. Install Ikernel to run R in base (default) environment (not creating a new environment)
 The second option is to install some packages in R to make the kernel available to Jupyter Notebook. It can be accomplished by following these steps:
 
 > **_IMPORTANT:_** This option requires R to have been previously installed.
@@ -93,7 +93,7 @@ Anaconda is an open-source distributor of Python and R. It aims to simplify pack
 ### <a name="Py_A"></a> I. You just have Python installed but no Anaconda
 If you have Python installed, we encourage you to change it to Anaconda, which also has a friendly navigator called "Anaconda Navigator" to check your packages and environments. To install Anaconda correctly, Python must be removed from your system completely. [Here](https://www.educative.io/edpresso/how-to-uninstall-python) we leave you a guide to do it. After uninstalling Python, follow the steps to install Anaconda as [section I](Python_R_installation.md#anaconda) explains.
 
-### <a name="justA"></a> I. You have Anaconda installed
+### <a name="justA"></a> II. You have Anaconda installed
 
 We encourage you to uninstall Anaconda completely in order to set configurations correctly. To do so, Make sure you uninstall Anaconda correctly by following these [steps](https://docs.anaconda.com/anaconda/install/uninstall/). Even folders left can cause problems with packages in the future. So make sure you have no folders named "Python" or "Anaconda".
 
