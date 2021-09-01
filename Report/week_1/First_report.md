@@ -1,0 +1,44 @@
+# First Report
+
+Last names and Names: Eusebio Evangelista, Eljaer Edfrance
+
+College Code: 20155658
+
+Article : The "Mincer equation" thirty years after schooling, experience and earnings
+
+Author of article : Thomas Lemieux
+
+## 1.- What is the research question of the paper?
+
+The research question envolves around the adaptation of the Mincer Equation to current microdata in labor economics in US, Canadá and so on in 1950's until mid 1990's. The research question would be: Does the Mincer equation adapt to the microdata currently used in labor economics issues?
+
+## 2.-Which are the strengths and weaknesses of the document's approach to answer that question?
+
+The article tries to figure out if the Mincer equation fits/adapts to the current microdata (until the mid-90's). It can have great relevance in terms of contribution, as well as being the object of criticism. Therefore, the following will present the strengths and weaknesses of the article.
+
+On the one hand, there are a number of strengths of the article.
+
+First of all, it reviews the general literature of the Mincer equation: it describes it and points out how -with data from that period of publication (1974)- it was quite accurate in the estimates of wages, having as independent variables years of schooling and potential experience. Those paragraphs of the article dedicated to explaining the Mincer equation are so useful, since they introduce the reader to the main subject.
+
+Secondly, given the new current micro data - it uses databases until the mid-90's - it re-evaluates the Mincer equation to see if it is adequate and it manage to provide good estimates for these new microdata. It does by questioning each of the assumptions behind the Mincer equation: wages in logarithms, linearity of the equation, linearity of years of schooling, the quadratic function of experience, separability in years of education and experience. (no interaction) and the cohort effect (age) on wages. And, in my opinion, this is very remarkable since it criticizes with recent empirical studies each one of the assumptions.
+
+On the other hand, in my view, there are also a series of weaknesses to answer the research question (Does the Mincer equation adapt to the current microdata used in labor economics issues?).
+
+First of all, the lack of inclusion - as the author emphasized - of an interaction between the variables years of education and years of experience, since currently given the circumstances it is very clear to think that years of experience can help estimate wages, due to years of education (the fewer years of experience you have, it means that you just have left college or high school).
+
+Secondly, there is a variable that has not been considered here and it is envolved that in those decades the inclusion of women in the labor market was scarce. That is why - I think - is that these studies from previous decades focused on studying men (As it has been done in many empirical studies cited by the author). However, the inclusion of women has altered this Mincer equation, given that they -women- even start out earning less than men (who, according to the article, already earn little because they are beginners in the labor market in Canada, the United States, etc.). This in one way or another disturbs and makes the curve of the relationship between years of schooling and log salaries vary. There is an important slant to consider.
+
+
+
+## 3.-what is the contribution of this paper? (If you can't find any contributions, ask yourself why the editor and referees decided to publish the article.)
+
+The contribution that this article provides is that it makes a critical analysis of the assumptions that the Mincer equation presents, since there is new microdata in labor economics to deal with in empirical research. That analysis is done through multiple citations of many scientific articles on labor economics - specifically the CPS and another Canadian database - to explain the new adaptations that must be made to the Mincer equation in order to obtain robust and accurate estimations. In fact, those adaptations have already been made, it is just that the author -Thomas Lemieux- incorporated them all in a single paper to have a compilation of them and their adaptations to each of the assumptions of the Mincer equation.
+
+
+## 4.-What would be one or two valuable and specific next steps to answer this question?
+
+Previously, I stressed the need to incorporate new variables that achieve greater robustness in their estimates.
+
+First of all, include an interaction between the variables "years of education" and "years of experience", since currently, given the circumstances, it is very clear to think that years of experience can help estimate wages, due to years of education ( the fewer years of experience you have, it means that you have barely left college or high school).
+
+Secondly, given that the inclusion of women in the labor market was low in previous times. It really is essential to incorporate them. It will be an important slant if in future papers the authors do not incorporate it. Presumably, the inclusion of women has altered this Mincer equation, given that they even start out earning less than men (who, according to the article, already earn little because they are beginners in the labor market in Canada, the United States, etc.). This in one way or another disturbs and makes the curve of the relationship between years of schooling and log salaries vary.
