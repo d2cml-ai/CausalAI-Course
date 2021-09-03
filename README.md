@@ -1,3 +1,18 @@
+# ECO224-Causal Inference and Machine Learning
+This is a repository for the course ECO224 Causal Inference and Machine Learning at PUCP. 
+
+The classes are on Thuersday 20:00 - 22:00.
+
+## Weekly Reports 
+Every week students have to write a report about a scientific paper. The students will write a report of 1 or 1.5 pages maximum on an assigned article, and will be uploaded the markdown file  on github the previous Wednesday of the lecture at 6:00 p.m. The report should address the following points: 
+* What is the research question of the article?
+*  What are the strengths and weaknesses of the paper's approach to answering that question?
+*  How does this document advance knowledge about the question, that is, what is the contribution? (If you can't find any contributions, ask yourself why the editor and referees decided to publish the article.)
+* What would be one or two valuable and specific next steps to move forward on this question?
+
+## Work group
+The students will replicate scripts worked in labs and they will work in groups. 
+
 
 Group_1 | Group_2 | Group_3 | Group_4
 ------- | ------- | ------- | -------
