@@ -28,11 +28,11 @@ You can start Python in the base-root environment by following these steps:
 
 1. Open Anaconda Navigator and click on "base (root)"
 
-<img src="navigator.PNG">
+<img src="navigator.png">
 
 2. Enter to Jupyter Notebook by clicking "Launch".
 
-<img src="j_launch.PNG">
+<img src="j_launch.png">
 
 3. Open a new notebook and install <code>pyread</code>. After that, you might be able to import such a package.
 
