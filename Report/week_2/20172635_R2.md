@@ -1,0 +1,12 @@
+##INFERENCE FOR HIGH-DIMENSIONAL SPARSE ECONOMETRIC MODELS
+
+#20172635
+
+The document that has been reviewed to the second report is Inference For High-Dimensional Sparse Econometric Models by A. Belloni, V. Chernozhukov, and C. Hansen. This one is about some estimation and inference methods for high dimensional sparse (HDS) regression models in econometrics. Within the HDS models there are many regressors and the  regression function is wellapproximated by a parsimonious set of these. The article research question is about the discussion of how select and estimate the regression function. 
+
+To answer the previous question, there are some points that could contribute to the answer. The approach used, in relation to the choice of motivation to use HDS models, has as its advantage the wide availability of data sets with many regressors. The structure of the document is another point because the organization of the seven sections helps to understand the author's objective, this through the conceptual presentation, the discussion, the development of the proposition, the results and the empirical application.
+Regarding the difficulties presented by the approach of the article, one point could be the mathematical notation used, as well as problems that are more specific to the models used, for example the inaccuracy of the Oracle convergence rates, due to the fact that T is unknown, in section 2.
+
+As just mentioned, the structure of the document allows the development of the response and also to identify the contribution of the article. Each section, in addition to the theoretical part, shows examples and / or applications; an important contribution is the comparative dynamics that it uses to be able to choose the most appropriate method, according to each scenario. The autor shows that for the HDS case, the best method is the Post-iterated Lasso for example.
+
+Finally, to identify the next steps to contribute to the response, the author's comments in the conclusion section is taken into consideration, he mentions that the document has worked with the penalty methods for the estimation, but there are many others for do more research. In addition, expanding the HDS models and methods that have not been developed in this document would be interesting in terms of results.
