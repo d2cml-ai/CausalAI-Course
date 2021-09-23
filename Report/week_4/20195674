@@ -1,0 +1,24 @@
+---
+title: 'Report #4'
+author: "José Uscamayta Quispe / 20195674"
+date: "22/9/2021"
+output: pdf_document
+---
+
+
+
+# 1. What is the research question of the article?
+
+Estimates of variables for a model are often very complex, because empirical research requires control and manipulation and selection of variables, either dependent or independent. While it is true that the treatment of selected variables in correlational or experimental analyses of a model can generate more accurate estimates and significance tests of focal effects, poorly selected variables can also be detrimental and may even be used incorrectly.
+
+# 2. What are the strengths and weaknesses of the paper's approach to answering this question?
+
+The article aims to answer how effective, beneficial it can be in comparison to traditional estimations and to show the potential benefits of using a variable selection method that is based on principles such as the double lasso, to better identify which variables to include and not to include in the model. 
+
+# 3. How does this paper advance knowledge about the question, i.e., the contribution?
+
+Regarding the strengths of the use of the double lasso variable, it facilitates us in identifying which variables have sufficient empirical support for their inclusion in the analysis, besides proving the effectiveness of the randomization and this can be demonstrated in the simulations, which tell us that the use of this method reduces the error and increases the statistical power.
+
+# 4. What would be one or two valuable and specific next steps to advance this question?
+
+Unlike linear regression, Lasso regression has parameters that minimize the sum of squared errors in the equation, additionally have a penalty term, which will reduce the estimated regression coefficients to zero, set coefficients of some variables exactly to zero, and help us reduce overfitting. The shrinkage properties will allow us to use Lasso regression even when the number of observations is small relative to the number of predictors.
