@@ -1,0 +1,28 @@
+---
+title: "Reporte 7 - 20195674"
+author: "José Uscamayta Quispe"
+date: "27/10/2021"
+output: pdf_document
+---
+
+1. What is the research question?
+
+It includes about three main questions, which are:
+
+a. Was the mindset intervention effective in improving student achievement?
+
+b. Was the effect of the intervention moderated by school level achievement (X2) or pre-existing mindset norms (X1)? In particular there are two competing hypotheses about how X2 moderates the effect of the intervention: Either it is largest in middle-achieving schools (a "Goldilocks effect") or is decreasing in school-level achievement.
+
+c. Do other covariates moderate treatment effects?
+
+2. What are the strengths and weaknesses of the paper's approach to answering this question?
+
+The causal forest method has great potential for understanding and drawing conclusions from observational study design with unknown treatment propensities, and clustering of outcomes at the school level. However, as this is a method that bases its analysis on clusters, it is difficult to find non-parametric estimation of t(x) (conditional average treatment effect), which could be found without performing the cluster analysis, but this approach also has its limitations.
+
+3. How does this paper advance knowledge about the question, i.e., what is the contribution?
+
+In particular it is challenging to find heterogeneous effects that have validity, such as, for example, the case of a synthetic drug that reduces a given level of depression. You have 2 randomly selected groups of men and women. One group receives the treatment and you can see that there is a difference in depression levels compared to the control group. Then the developers of the study want to compare the difference between men and women within the treatment group and draw results from there, however, it would not be adequate as there may be many other factors that make the difference between the impact of the drug on women and men diverge, such as the number of men and women. Studies as in this reading give us more tools to answer such questions. Cluster analysis is appropriate, since it is known that in a given control group there may be spillovers and the treatment is not going only to the one it should, so this strategy of cluster analysis seems to me appropriate and contributes a lot from my point of view.
+
+4. What would be one or two valuable and specific next steps to advance this question?
+
+Try to find a suitable method to capture heterogeneous effects in clustered observational.
