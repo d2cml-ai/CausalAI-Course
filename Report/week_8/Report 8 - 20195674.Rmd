@@ -1,0 +1,22 @@
+---
+title: "Report 8"
+author: "José Uscamayta Quispe"
+date: "11/11/2021"
+output: pdf_document
+---
+
+# 1. What is the research question of the paper?
+
+Rather than a question, the working paper shows a new way of solving problems for estimating the heterogeneity of causal effects in experimental and observational studies, and for performing hypothesis testing on the magnitude of differences in treatment effects between subsets of the population, i.e. making valid inferences. This can be achieved with regression trees and the honest approach developed in the research paper.
+
+# 2. What are the strengths and weaknesses of the paper's approach to answering that question?
+
+One strength would be that the approach allows the construction of valid confidence intervals for treatment effects, even in samples with many covariates relative to the sample size, and without sparsity assumptions.
+
+# 3. How does this paper advance knowledge about the question, i.e., what is the contribution (if no contribution can be found, ask why the editor and referees decided to publish the paper)?
+
+The contribution is relevant because it uses machine learning algorithms and can find confidence bands on the effects that are being estimated, which in machine learning is not very much taken into account since the aim is to predict and the objective is to reduce the prediction error without overfitting.
+
+# 4. What would be one or two valuable and specific next steps to advance this question?
+
+Carry out more studies in different fields of knowledge and validate the results, so that this new method can be used in a standard way when trying to estimate the heterogeneity of causal effects in experimental and observational studies.
