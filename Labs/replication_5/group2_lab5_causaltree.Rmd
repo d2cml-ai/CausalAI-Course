@@ -1,0 +1,167 @@
+---
+title: "Trabajo_CausalTree_Group2"
+authors: "Diego Alonso Gómez and Alexander Pacheco"
+date: "11/11/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+When a sampling unit is drawn from a
+finite population and returned to that population,
+after its characteristics have been registered,
+before the next drive is removed, it is said that
+sampling is "with replacement". Otherwise, the sampling is "without replacement".
+
+Sampling is called with replacement When a selected unit
+randomly from the population is returned to the population and then a
+second item at random. Whenever a unit is selected, the population
+contains all the same units, so one unit can be selected
+more than once.
+
+
+```{r}
+library(usethis)
+library(devtools)
+library(causalTree)
+library(causalTree)
+library(grf)
+library(rpart)
+library(glmnet)
+library(splines)
+library(MASS)
+library(lmtest)
+library(sandwich)
+library(ggplot2)
+```
+
+
+```{r}
+
+getwd()
+setwd("C:\\Users\\Diego\\Desktop\\Estadistica Aplicada\\Para trabajo grupal 11 de Noviembre")
+# Read in Penn
+Penn <- as.data.frame(read.table("..//data//penn_jae.dat", header=T ))
+
+n <- nrow(Penn)
+
+# Treatment: does the the gov't spend too much on "welfare" (1) or "assistance to the poor" (0)
+treatment <- "female"
+
+# Outcome: 1 for 'yes', 0 for 'no'
+outcome <- "log(inuidur1)"
+
+# 1°: Run a OLS with:regression to find the HTE of female*T4, remember that 
+#       log(inuidur1) is the endogenous variable.  Also use the HC2 correction
+
+Penn$T4 <- as.integer(as.logical(factor(Penn$tg == 4))) 
+```
+
+
+```{r}
+# fmla <- formula(paste(outcome, ' ~ ', treatment, '*', T4))
+ols <- lm(log(inuidur1) ~ female*T4 , data=Penn)
+coeftest(ols, vcov=vcovHC(ols, type='HC2'))
+
+```
+
+
+
+```{r}
+# Dividing Penn into three subsets
+indices <- split(seq(nrow(Penn)), sort(seq(nrow(Penn)) %% 3))
+names(indices) <- c('split', 'est', 'test')
+
+
+# Fitting the forest
+
+ct.unpruned <- honest.causalTree(
+  
+  formula= log(inuidur1)~ T4+ female+black+othrace+factor(dep)+q2+q3+q4+q5+q6+agelt35+agegt54+durable+lusd+husd ,  # Define the model
+  
+  data=Penn[indices$split,],
+  
+  treatment=Penn[indices$split, "female"],
+  
+  est_data=Penn[indices$est,],
+  
+  est_treatment=Penn[indices$est, "female"],
+  
+  minsize=0.5,                 # Min. number of treatment and control cases in each leaf
+  
+  HonestSampleSize=length(indices$est), #  Num obs used in estimation after splitting
+  
+  
+  
+  # We recommend not changing the parameters below
+  
+  split.Rule="CT",            # Define the splitting option
+  
+  cv.option="TOT",            # Cross validation options
+  
+  cp=0,                       # Complexity parameter
+  
+  split.Honest=TRUE,          # Use honesty when splitting
+  
+  cv.Honest=TRUE              # Use honesty when performing cross-validation
+  
+)
+
+
+# Table of cross-validated values by tuning parameter.
+
+ct.cptable <- as.data.frame(ct.unpruned$cptable)
+
+# Obtain optimal complexity parameter to prune tree.
+
+cp.selected <- which.min(ct.cptable$xerror)
+
+
+cp.optimal <- ct.cptable[cp.selected, "CP"]
+
+# Prune the tree at optimal complexity parameter.
+ct.pruned <- prune(tree=ct.unpruned, cp=cp.optimal)
+
+# Predict point estimates (on estimation sample)
+tau.hat.est <- predict(ct.pruned, newPenn=Penn[indices$est,])
+
+# Create a factor column 'leaf' indicating leaf assignment in the estimation set
+num.leaves <- length(unique(tau.hat.est))
+leaf <- factor(tau.hat.est, levels=sort(unique(tau.hat.est)), labels = seq(num.leaves))
+
+```
+
+## 1° Question: •	Explain why we need to partitionate the data in three sets.
+
+We believe that it is necessary and it is necessary to partition the data because it is necessary to write the average effects of W_i and G_i on Y_i, all this to obtain the estimator $ B_ {wg} $ that allow us to test the hyphotesis that the treatment effect is the same regardless of membership to some group $ G_i $, ie $ B_ {wg} = 0 $.
+
+## 2° Question: •	Why do we need to use the honest.causalTree function?
+
+The honest.causal Tree function is used to implement the algorithm developed by Susan Athey. This allows creating the tree in such a way that for each step of the algorithm the 3 parts of our data are used: “split”, “est” and “test”, in such a way that they do not repeat observations among themselves. This allows us to avoid the problem of “overfitting” and to evaluate our results in a better way.
+
+## 3° Question: Explain in detail the creation of the tree and how do you choose the optimal pruned tree
+
+The creation of the tree consists of these setps. 1st in the split, the whole optimization process is carried out to be able to find which is the ideal tree that minimizes the mean squared error for all variables. Then in the partition "est" with that tree that has been found, the heterogeneous effects with that tree will be searched, but using the data of the partition "est". Finally, with what was found in this second stage, it will be tested with the “test” partition, this to see if the outcome found looks like the true outcome or not.
+
+
+```{r}
+rpart.plot(
+  x=ct.pruned,        # Pruned tree
+  type=3,             # Draw separate split labels for the left and right directions
+  fallen=TRUE,        # Position the leaf nodes at the bottom of the graph
+  leaf.round=1,       # Rounding of the corners of the leaf node boxes
+  extra=100,          # Display the percentage of observations in the node
+  branch=.1,          # Shape of the branch lines
+  box.palette="RdBu") # Palette for coloring the node
+
+```
+
+## 4° Question: •	Plot the pruned tree and explain the HTE you found.
+
+On the one hand, the most positive HTE was for the subgroup where q2=0, T4=1, q6=1, agelt35=0 with a value of 1.6. On the other hand,  the most negative HTE was for the subgroup where q2=0, T4=0, factor(dep)=1.2, factor(dep)=1, q4=1, husd=1 with a value of -0.63.
+
+
