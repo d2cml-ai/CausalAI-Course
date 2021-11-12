@@ -1,0 +1,184 @@
+---
+title: "workgroup_5"
+author: "Grupo 8"
+date: "12/11/2021"
+output: html_document
+---
+
+#### *Integrantes:* 
+
+1. Gianfranco Soria (20163509)
+3. Andrea Clavo (20176040)
+4. Sandra Martínez (20173026)
+
+_____
+## Question 2:
+_____
+
+Now you have to replicate de Causal tree estimation of this script but using the Pennsylvania re-employment bonus experiment. You have to read this intro in order to answer the next questions.
+
+1. First run an OLS regression to find the HTE of female*T4, remember that log(inuidur1) is the endogenous variable. Also use the HC2 correction.
+
+
+2. Replicate the causal tree estimation:
+
+- Use the next specification or formula
+log(inuidur1)~T4+ (female+black+othrace+factor(dep)+q2+q3+q4+q5+q6+agelt35+agegt54+durable+lusd+husd)
+
+- Explain why we need to partitionate the data in three sets.
+
+- Why do we need to use the honest.causalTree function?
+
+- Explain in detail the creation of the tree and how do you choose the optimal pruned tree
+
+- Plot the pruned tree and explain the HTE you found.
+
+## Install necessary libraries
+```{r, include=TRUE}
+#install.packages("devtools") #if you don't have this installed yet.
+#install.packages("grf")
+#installed.packages("glmnet")
+#install.packages("glmnet", dependencies=TRUE)
+#devtools::install_github('susanathey/causalTree') 
+library(causalTree)
+
+# use e.g., install.packages("grf") to install any of the following packages.
+library(grf)
+library(rpart)
+library(glmnet)
+library(splines)
+library(MASS)
+library(lmtest)
+library(sandwich)
+library(ggplot2)
+```
+
+## Create data set
+```{r, include=TRUE}
+## loading the data
+setwd("C:/Users/PC-1/Documents/GitHub/ECO224/Labs/replication_5")
+Penn <- as.data.frame(read.table("../data/penn_jae.dat", header=T ))
+Penn<- subset(Penn, tg== 4| tg==0)
+table(Penn$tg)
+n <- dim(Penn)[1]
+p_1 <- dim(Penn)[2]
+```
+
+```{r, include=TRUE}
+## Create sub data
+T4<-Penn[Penn$tg==4,]
+table(T4$tg)
+```
+
+We can note that the total group is made up of 5099 and we include 23 variables. Likewise, the T4 subgroup is represented by 34.22% of the total sample.
+
+## OLS
+
+```{r, include=TRUE}
+Penn$T4<-Penn$tg
+Penn$T4[Penn$T4==4]<-1
+Penn$treatment=Penn$T4
+names(Penn)
+```
+
+```{r, include=TRUE}
+ols <- lm(log(inuidur1)~ (T4*female), data=Penn)
+coeftest(ols, vcov=vcovHC(ols, type='HC2'))
+```
+
+### Causal tree estimation
+
+1. Explain why we need to divide the data into three sets.
+The division into three sub-sets of data has the purpose of obtaining more efficient results and falling into overfiting. These groups are "split", "est" and "test". The first group is used to find the ideal arbaol. The second group uses what was found by the first (ideal tree) and finds the heterogeneous effects. The last group is used to test if the found and the true outcome correspond. In this way we can validate the results. It is important to note that these sets are not necessarily the same size.
+
+2. Why do we need to use the honest.causalTree function?
+The "causalTree" library presents two estimation options: Adaptive and Honest. The difference between both options is that the first uses the same data to find the optimal tree and the heterogeneous effects. While "honest" uses three different sets. This difference gives the "honest" option better results. For this reason the "honest.causalTree" function is used.
+
+3. Explain in detail the creation of the tree and how you choose the optimal pruned tree.
+To create the tree and choose the most optimal one, a sub data ("split") is used. This choice comes from a randomization and a minimization algorithm is used. Likewise, to determine the optimal tree, the results of the errors are used and the one with the smallest size is chosen. For this action we use the code "cp.selected <- which.min (ct.cptable $ xerror)" and later "cp.optimal <- ct.cptable [cp.selected," CP "]"
+
+4.Plot the pruned tree and explain the HTE you found.
+
+```{r, include=TRUE}
+fmla<-paste("log(inuidur1)~T4+(female+black+othrace+factor(dep)+q2+q3+q4+q5+q6+agelt35+agegt54+durable+lusd+husd)")
+fmla
+```
+
+```{r, include=TRUE}
+# Dividing data into three subsets
+indices <- split(seq(nrow(Penn)), sort(seq(nrow(Penn)) %% 3))
+names(indices) <- c('split', 'est', 'test')
+```
+
+```{r, include=TRUE}
+# Fitting the forest
+ct.unpruned <- honest.causalTree(
+  formula=fmla,            # Define the model
+  data=Penn[indices$split,],
+  treatment=Penn[indices$split, "treatment"],
+  est_data=Penn[indices$est,],
+  est_treatment=Penn[indices$est, "treatment"],
+  minsize=1,                 # Min. number of treatment and control cases in each leaf
+  HonestSampleSize=length(indices$est), #  Num obs used in estimation after splitting
+  
+  # We recommend not changing the parameters below
+  split.Rule="CT",            # Define the splitting option
+  cv.option="TOT",            # Cross validation options
+  cp=0,                       # Complexity parameter
+  split.Honest=TRUE,          # Use honesty when splitting
+  cv.Honest=TRUE              # Use honesty when performing cross-validation
+)
+```
+
+```{r, include=TRUE}
+# Table of cross-validated values by tuning parameter.
+ct.cptable <- as.data.frame(ct.unpruned$cptable)
+
+# Obtain optimal complexity parameter to prune tree.
+cp.selected <- which.min(ct.cptable$xerror)
+cp.optimal <- ct.cptable[cp.selected, "CP"]
+
+# Prune the tree at optimal complexity parameter.
+ct.pruned <- prune(tree=ct.unpruned, cp=cp.optimal)
+
+# Predict point estimates (on estimation sample)
+tau.hat.est <- predict(ct.pruned, newdata=Penn[indices$est,])
+
+# Create a factor column 'leaf' indicating leaf assignment in the estimation set
+num.leaves <- length(unique(tau.hat.est))
+leaf <- factor(tau.hat.est, levels=sort(unique(tau.hat.est)), labels = seq(num.leaves))
+```
+
+```{r, include=TRUE}
+rpart.plot(
+  x=ct.pruned,        # Pruned tree
+  type=3,             # Draw separate split labels for the left and right directions
+  fallen=TRUE,        # Position the leaf nodes at the bottom of the graph
+  leaf.round=1,       # Rounding of the corners of the leaf node boxes
+  extra=100,          # Display the percentage of observations in the node
+  branch=.1,          # Shape of the branch lines
+  box.palette="RdBu") # Palette for coloring the node
+```
+
+The final results show that most of the effects are negative. Only 6 subgroups have positive heterogeneous effects. These are those individuals are:
+  1. q5 = 0, female = 0, q6 = 0, durable = 1, lusd = 1, agegt54 = 0, agelt35 = 1
+  2. q5 = 0, female = 0, q6 = 0, durable = 1, lusd = 0, q4 = 0, agelt35 = 1
+  3. q5 = 0, female = 0, q6 = 0, durable = 1, lusd = 0, q4 = 0, agelt35 = 1
+  4. q5 = 0, female = 1, agelt35 = 1, q6 = 1, lusd = 0, q4 = 0, agelt35 = 1
+  5. q5 = 0, female = 1, agelt35 = 1, q6 = 0, q4 = 0, durable = 1
+  6. q5 = 0, female = 1, agelt35 = 0, black = 0
+
+We can identify that the variables used to recognize heterogeneous effects appear to be the same. These are q4, q5, q6, durable, lusd, durable, agelt35. Likewise, we initially start only for q5 = 0, for the other variables both values are presented. Likewise, if we add the representation of all these subgroups, we note that they are 18% of the total. On the other hand, the total population represented by negative heterogeneous effects is much larger. Therefore, we could say that in general negative heterogeneous effects are found.
+
+
+
+
+
+
+
+
+
+
+
+
+
