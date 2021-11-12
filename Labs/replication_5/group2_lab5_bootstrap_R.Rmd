@@ -1,0 +1,103 @@
+---
+title: "Trabajo_Bootstrap_Group2"
+author: "Diego Alonso Gómez and ............."
+date: "11/11/2021"
+output: html_document
+editor_options: 
+  chunk_output_type: inline
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Bootstraping - Scripts in R and Python
+
+For the bootstrap section you have to use the next equation:
+log(inuidur1)~T4+ (female+black+othrace+factor(dep)+q2+q3+q4+q5+q6+agelt35+agegt54+durable+lusd+husd)
+
+**No quadratic tem is required!!!**
+Next, you have to compute the standard errors of 1,000 bootstrap estimates for the **T4, female** and **black**  variables.
+Describe in detail each step you follow, and what lines of code you changed. 
+Finally, present your results in a table. 
+
+------
+
+To remember the bootstrap concept, it is also necesary to know the meaning of "sampling with replacement": 
+Sampling is called with replacement When a selected unit
+randomly from the population is returned to the population and then a
+second item at random. Whenever a unit is selected, the population
+contains all the same units, so one unit can be selected
+more than once.
+
+-------------------------
+
+## 1° Step: We open the dataset and subset it to compare treatment group 4 and the control group. 
+
+```{r}
+
+setwd("C:\\Users\\Diego\\Desktop\\Estadistica Aplicada\\Para trabajo grupal 11 de Noviembre")
+library(boot)
+Penn <- as.data.frame(read.table("../data/penn_jae.dat", header=T ))
+n <- dim(Penn)[1]
+p_1 <- dim(Penn)[2]
+Penn<- subset(Penn, tg== 4| tg==0)
+attach(Penn)
+```
+
+
+## 2° Setp: We define one of the reggresors, and then the function that will be included in the boot() function
+
+```{r}
+# Here we are defining one of the variable that would be included in our regression:
+T4<- (tg==4)
+
+# Here we have changed the form of the regression previously used
+name <- log(inuidur1)~T4+ (female+black+othrace+factor(dep)+q2+q3+q4+q5+q6+agelt35+agegt54+durable+lusd+husd)  
+
+
+# Here we the function that will define the form of our regression
+boot.fn <- function(data, index) {
+  coef(lm(log(inuidur1)~T4+ (female+black+othrace+factor(dep)+q2+q3+q4+q5+q6+agelt35+agegt54+durable+lusd+husd), data = data, subset = index)) }
+#
+```
+
+
+```{r}
+# Finally, here we define our bootstapping procces, what we only have changed is the name of our dataframe
+example <- boot(Penn, boot.fn, 1000)
+example
+```
+
+```{r}
+# We do this to know which is the orden of our coefficents.
+abc <- summary(lm(name, data = Penn))$coef
+abc
+```
+
+```{r}
+#Here we add a graphic: 
+plot(example)
+```
+
+## Finally, we present our results in a table:
+
+```{r}
+table<- matrix(0, 4, 2)
+
+
+table[1,1]<-abc[1,2]
+table[2,1]<-abc[2,2]
+table[3,1]<-abc[3,2]
+table[4,1]<-abc[4,2]
+
+table[1,2]<- 0.15384407
+table[2,2]<- 0.03444049
+table[3,2]<- 0.03551758
+table[4,2]<- 0.05883169
+
+colnames(table) <- c("std_with_linear_estimation", 'std_with_boot')
+rownames(table)<- c('intercept','T4TRUE','female','black')
+
+table
+```
