@@ -1,0 +1,29 @@
+---
+title: "Report 9 - 20195674"
+author: "José Uscamayta Quispe"
+date: "17/11/2021"
+output: pdf_document
+---
+
+1. What is the research question of the paper?
+
+More than a research question, the contribution of this paper is to present a new way or rather to let the     nuisance parameters be unconstrained when dealing with the classic semi-parametric problem estimation        problem. For this purpose the paper presents the machine learning tool with some contributions of the author to estimate n0 without constraints (nuisance parameter).
+
+2. What are the strengths and weaknesses of the paper's approach to answer this question?
+
+The strength is that machine learning methods provide a balance between bias and variance. However this method by itself has problems, such as not being consistent, so the author mentions 2 steps to follow to correct:
+
+  1. Using Neyman-orthogonal moments/scores, this step reduces the sensitivity with respect to nuisance             parameters.
+
+  2. Making use of crosss fitting, this step provides an efficient way of data-splitting. 
+
+The aggregation of these 2 steps is called Debiased/Double ML.
+
+3. How does this paper advance knowledge about the question, i.e., what is the contribution (if you cannot find any contribution, ask yourself why the editor and referees decided to publish the paper)?
+
+It advances in an important way as it allows to estimate whether the need to constrain nuisance parameters.
+
+4. What would be one or two valuable and specific next steps to advance this question?
+
+Continue to use this new way to understand the effects that certain treatments have and understand them better.
+
