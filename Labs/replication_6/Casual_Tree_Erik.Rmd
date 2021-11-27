@@ -1,0 +1,344 @@
+---
+title: "Casual_Tree_Erik"
+author: "Erik Brandon Morales López     (20163041)"
+date: "27/11/2021"
+output: html_document
+---
+
+This information you find here was extracted by the following authors:
+Athey and Wager in 2018. Also, the code contains part of the casual tree which
+was developed by erikcs in Github from beginning and throughout.
+
+Here I leave his github page:
+[erikcs](https://github.com/grf-labs/grf/tree/master/experiments/acic18)
+
+
+Importing the main libraries
+```{r}
+set.seed(1)
+
+rm(list = ls())
+
+library(grf)
+if(packageVersion("grf") < '0.10.2') {
+  warning("This script requires grf 0.10.2 or higher")
+}
+library(sandwich)
+library(lmtest)
+library(Rcpp)
+library(Hmisc)
+library(devtools)
+library(ggplot2)
+```
+
+
+Loading data
+```{r}
+data.all = read.csv(url("https://raw.githubusercontent.com/grf-labs/grf/master/experiments/acic18/synthetic_data.csv"))
+
+data.all$schoolid = factor(data.all$schoolid)
+
+DF = data.all[,-1]
+school.id = as.numeric(data.all$schoolid)
+
+school.mat = model.matrix(~ schoolid + 0, data = data.all)
+school.size = colSums(school.mat)
+
+```
+
+
+#In this part the school ID does not affect pscore. So  I am going to ignore it
+```{r}
+w.lm = glm(Z ~ ., data = data.all[,-3], family = binomial)
+summary(w.lm)
+
+W = DF$Z
+Y = DF$Y
+X.raw = DF[,-(1:2)]
+
+C1.exp = model.matrix(~ factor(X.raw$C1) + 0)
+XC.exp = model.matrix(~ factor(X.raw$XC) + 0)
+
+X = cbind(X.raw[,-which(names(X.raw) %in% c("C1", "XC"))], C1.exp, XC.exp)
+
+```
+
+
+1. How the tree was built?
+```{r}
+Y.forest = regression_forest(X, Y, clusters = school.id, equalize.cluster.weights = TRUE)
+Y.hat = predict(Y.forest)$predictions
+W.forest = regression_forest(X, W, clusters = school.id, equalize.cluster.weights = TRUE)
+W.hat = predict(W.forest)$predictions
+
+cf.raw = causal_forest(X, Y, W,
+                       Y.hat = Y.hat, W.hat = W.hat,
+                       clusters = school.id,
+                       equalize.cluster.weights = TRUE)
+varimp = variable_importance(cf.raw)
+selected.idx = which(varimp > mean(varimp))
+
+cf = causal_forest(X[,selected.idx], Y, W,
+                   Y.hat = Y.hat, W.hat = W.hat,
+                   clusters = school.id,
+                   equalize.cluster.weights = TRUE,
+                   tune.parameters = "all")
+tau.hat = predict(cf)$predictions
+
+cf
+```
+
+In this first part, I can say the three was built according 2000 threes, the number of the train test was 10391 and the main  features were 8.
+
+
+2. Estimating the ATE
+```{r}
+ATE = average_treatment_effect(cf)
+paste("95% CI for the ATE:", round(ATE[1], 3),
+      "+/-", round(qnorm(0.975) * ATE[2], 3))
+
+```
+
+In the part number two, I can say the 95% CI for the ATE is around the 0.248 +/- 0.04.
+
+3. Run best linear predictor analysis
+```{r}
+test_calibration(cf)
+```
+
+In the part number three, I can say the variable mean.forest.prediction is significant because its p-value is less than 0.05, but the differential.forest.prediction is not significant because the p-value is more than 0.05.
+
+
+```{r}
+dr.score = tau.hat + W / cf$W.hat *
+  (Y - cf$Y.hat - (1 - cf$W.hat) * tau.hat) -
+  (1 - W) / (1 - cf$W.hat) * (Y - cf$Y.hat + cf$W.hat * tau.hat)
+school.score = t(school.mat) %*% dr.score / school.size
+
+school.X1 = t(school.mat) %*% X$X1 / school.size
+high.X1 = school.X1 > median(school.X1)
+t.test(school.score[high.X1], school.score[!high.X1])
+
+school.X2 = (t(school.mat) %*% X$X2) / school.size
+high.X2 = school.X2 > median(school.X2)
+t.test(school.score[high.X2], school.score[!high.X2])
+
+school.X2.levels = cut(school.X2,
+  breaks = c(-Inf, quantile(school.X2, c(1/3, 2/3)), Inf))
+summary(aov(school.score ~ school.X2.levels))
+
+school.score.XS3.high = t(school.mat) %*% (dr.score * (X$S3 >= 6)) /
+  t(school.mat) %*% (X$S3 >= 6)
+school.score.XS3.low = t(school.mat) %*% (dr.score * (X$S3 < 6)) /
+  t(school.mat) %*% (X$S3 < 6)
+
+plot(school.score.XS3.low, school.score.XS3.high)
+t.test(school.score.XS3.high - school.score.XS3.low)
+
+```
+
+
+4. Look at school-wise heterogeneity
+```{r}
+pdf("school_hist.pdf")
+pardef = par(mar = c(5, 4, 4, 2) + 0.5, cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5)
+hist(school.score, xlab = "School Treatment Effect Estimate", main = "")
+dev.off()
+```
+
+In the part number four, the graph of the distribution appears to follow a normal distribution since the data is more clustered in the center and there are few outliers.
+
+
+5.Analysis ignoring clusters
+```{r}
+cf.noclust = causal_forest(X[,selected.idx], Y, W,
+                           Y.hat = Y.hat, W.hat = W.hat,
+                           tune.parameters = "all")
+
+ATE.noclust = average_treatment_effect(cf.noclust)
+paste("95% CI for the ATE:", round(ATE.noclust[1], 3),
+      "+/-", round(qnorm(0.975) * ATE.noclust[2], 3))
+
+test_calibration(cf.noclust)
+
+tau.hat.noclust = predict(cf.noclust)$predict
+plot(school.id, tau.hat.noclust)
+
+nfold = 5
+school.levels = unique(school.id)
+cluster.folds = sample.int(nfold, length(school.levels), replace = TRUE)
+
+tau.hat.crossfold = rep(NA, length(Y))
+for (foldid in 1:nfold) {
+  print(foldid)
+  infold = school.id %in% school.levels[cluster.folds == foldid]
+  cf.fold = causal_forest(X[!infold, selected.idx], Y[!infold], W[!infold],
+                          Y.hat = Y.hat[!infold], W.hat = W.hat[!infold],
+                          tune.parameters = "all")
+  pred.fold = predict(cf.fold, X[infold, selected.idx])$predictions
+  tau.hat.crossfold[infold] = pred.fold
+}
+
+cf.noclust.cpy = cf.noclust
+cf.noclust.cpy$predictions = tau.hat.crossfold
+cf.noclust.cpy$clusters = school.id
+test_calibration(cf.noclust.cpy)
+
+Rloss = mean(((Y - Y.hat) - tau.hat * (W - W.hat))^2)
+Rloss.noclust = mean(((Y - Y.hat) - tau.hat.noclust * (W - W.hat))^2)
+Rloss.crossfold = mean(((Y - Y.hat) - tau.hat.crossfold * (W - W.hat))^2)
+
+c(Rloss.noclust - Rloss, Rloss.crossfold - Rloss)
+
+summary(aov(dr.score ~ factor(school.id)))
+```
+
+
+In the five section, I can see the value of the mean forest prediction is 
+significant because the p-value is less than 0.05 but the differential.forest.prediction doesnt has the case, the p-value is more than 0.05, which is non significant.
+
+
+6. Analysis without fitting the propensity score
+```{r}
+cf.noprop = causal_forest(X[,selected.idx], Y, W,
+                          Y.hat = Y.hat, W.hat = mean(W),
+                          tune.parameters = "all",
+                          equalize.cluster.weights = TRUE,
+                          clusters = school.id)
+tau.hat.noprop = predict(cf.noprop)$predictions
+
+ATE.noprop = average_treatment_effect(cf.noprop)
+paste("95% CI for the ATE:", round(ATE.noprop[1], 3),
+      "+/-", round(qnorm(0.975) * ATE.noprop[2], 3))
+
+pdf("tauhat_noprop.pdf")
+pardef = par(mar = c(5, 4, 4, 2) + 0.5, cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5)
+plot(tau.hat, tau.hat.noprop,
+     xlim = range(tau.hat, tau.hat.noprop),
+     ylim = range(tau.hat, tau.hat.noprop),
+     xlab = "orthogonalized causal forest estimates",
+     ylab = "non-orthogonalized causal forest")
+abline(0, 1, lwd = 2, lty = 2, col = 4)
+par = pardef
+dev.off()
+```
+
+In the section number 6, I can see in 95% CI for the ATE it is around 0.254 +/- 0.038. In the plot, I can see the linear regression is trying to go through the point. 
+
+```{r}
+school.X = (t(school.mat) %*% as.matrix(X[,c(4:8, 25:28)])) / school.size
+school.X = data.frame(school.X)
+colnames(school.X) = c("X1", "X2", "X3", "X4", "X5",
+                    "XC.1", "XC.2", "XC.3", "XC.4")
+
+dr.score = tau.hat + W / cf$W.hat * (Y - cf$Y.hat - (1 - cf$W.hat) * tau.hat) -
+  (1 - W) / (1 - cf$W.hat) * (Y - cf$Y.hat + cf$W.hat * tau.hat)
+school.score = t(school.mat) %*% dr.score / school.size
+
+school.forest = regression_forest(school.X, school.score)
+school.pred = predict(school.forest)$predictions
+test_calibration(school.forest)
+
+
+# Alternative OLS analysis
+school.DF = data.frame(school.X, school.score=school.score)
+coeftest(lm(school.score ~ ., data = school.DF), vcov = vcovHC)
+
+```
+
+
+7. The code plot six plots in the Make some plots section, so explain what you find there.
+```{r}
+pdf("tauhat_hist.pdf")
+pardef = par(mar = c(5, 4, 4, 2) + 0.5, cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5)
+hist(tau.hat, xlab = "estimated CATE", main = "")
+dev.off()
+
+pdf("tauhat_hist_noprop.pdf")
+pardef = par(mar = c(5, 4, 4, 2) + 0.5, cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5)
+hist(tau.hat.noprop, xlab = "estimated CATE", main = "")
+dev.off()
+
+pdf("tauhat_hist_noclust.pdf")
+pardef = par(mar = c(5, 4, 4, 2) + 0.5, cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5)
+hist(tau.hat.noclust, xlab = "estimated CATE", main = "",
+     breaks = seq(-0.0, 0.55, by = 0.55 / 25))
+dev.off()
+
+
+pdf("tauhat_vs_X1.pdf")
+pardef = par(mar = c(5, 4, 4, 2) + 0.5, cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5)
+boxplot(tau.hat ~ round(X$X1), xlab = "X1", ylab = "estimated CATE")
+lines(smooth.spline(4 + X[,"X1"], tau.hat, df = 4), lwd = 2, col = 4)
+dev.off()
+
+pdf("tauhat_vs_X2.pdf")
+pardef = par(mar = c(5, 4, 4, 2) + 0.5, cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5)
+boxplot(tau.hat ~ round(X$X2), xlab = "X2", ylab = "estimated CATE")
+lines(smooth.spline(4 + X[,"X2"], tau.hat, df = 4), lwd = 2, col = 4)
+dev.off()
+
+school.avg.tauhat = t(school.mat) %*% tau.hat / school.size
+
+pdf("school_avg.pdf")
+pardef = par(mar = c(5, 4, 4, 2) + 0.5, cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5)
+a=plot(school.avg.tauhat, school.pred, cex = 1.5,
+     xlim = range(school.avg.tauhat, school.pred),
+     ylim = range(school.avg.tauhat, school.pred),
+     xlab = "average CATE estimate in school",
+     ylab = "school-wise forest predictions")
+abline(0, 1, lwd = 2, lty = 2, col = 4)
+par = pardef
+dev.off()
+
+```
+
+In the section number7, on the first plot I can see the distribution of the histogram doesnt follow a normal distribution, it seem a asymmetric distribution, because the data is grouped to the right. on the second plot, I can see it looks like a asymetric distribution, similar to the first one. The three plot, the distribution follow a normal distribution, because the data is groupd on the middle. The four plot, I can see the estimate CATE go through all the boxplot on x1. The five plot, the estimate CATE go through the boxplot on X2 variable. And finally, the final plot, I can see the linear regression doesnt that does not go through all the points and there are some outlires on the graph.
+
+
+8. Visualize school-level covariates by treatment heterogeneity
+```{r}
+school.X.std = scale(school.X)
+school.tercile = cut(school.pred,
+                     breaks = c(-Inf, quantile(school.pred, c(1/3, 2/3)), Inf))
+school.tercile.mat = model.matrix(~ school.tercile + 0)
+school.means = diag(1 / colSums(school.tercile.mat)) %*% t(school.tercile.mat) %*% as.matrix(school.X.std)
+
+MM = max(abs(school.means))
+HC = heat.colors(21)
+school.col = apply(school.means, 1:2, function(aa) HC[1 + round(20 * (0.5 + aa))])
+
+DF.plot = data.frame(tercile=rep(factor(1:3, labels=c("low", "mid", "high")), 9), mean=as.numeric(school.means),
+                     feature = factor(rbind(colnames(school.X), colnames(school.X), colnames(school.X))))
+
+ggplot(data = DF.plot, aes(x = feature, y = tercile, fill = mean)) +
+    geom_tile() + scale_fill_gradient(low = "white", high = "steelblue") +
+    theme(axis.text = element_text(size=12), axis.title = element_text(size=14),
+          legend.title = element_text(size=14), legend.text = element_text(size=12)) +
+    theme(panel.background = element_blank())
+ggsave("tercile_plot.pdf", width = 8, height = 4.5, dpi = 120)
+
+mean(school.X$XC.3)
+mean(school.X$XC.3[as.numeric(school.tercile) == 1])
+
+```
+
+In the section number 8, I can say the covariates is higher in cases where X1,x2,x4,X5,XC3.But in the others features, its different, because they are on the range of the medium and low.
+
+
+9. CATE by school
+```{r}
+ord = order(order(school.pred))
+school.sort = ord[school.id]
+
+pdf("school_boxplot.pdf")
+pardef = par(mar = c(5, 4, 4, 2) + 0.5, cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5)
+boxplot(tau.hat.noclust ~ school.sort, xaxt = "n",
+        xlab = "school", ylab = "estimated CATE")
+points(1:76, sort(school.pred), col = 4, pch = 16)
+legend("topleft", c("school mean CATE", "CATE w/o clustering"), pch = c(16, 1), col = c(4, 1), cex = 1.5)
+par = pardef
+dev.off()
+```
+
+In this final section, I can see the school´s mean is increasing on CATE variable. The CATE represent the clustering and its going for the mayority of the boxplot.
