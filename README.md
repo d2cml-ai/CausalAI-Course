@@ -3,6 +3,18 @@ This is a repository for the course ECO224 Causal Inference and Machine Learning
 
 The classes are on Thuersday 20:00 - 22:00.
 
+
+## Topics this course covers are:
+
+* Prediction/Inference with High Dimensional Linear Models
+* Prediction in Modern Nonlinear Regressions (Random Forest and Deep Neural Networks)
+* Randomized Control Trials
+* Causal DAGs
+* Double/debiased Machine Learning
+* Heterogeneous Treatment Effects using Causal Trees
+* Heterogeneous Treatment Effects using Causal Forest
+* Feature Engineering With Deep Learning for Causal and Predictive Inference
+
 ## Weekly Reports 
 Every week students have to write a report about a scientific paper. The students will write a report of 1 or 1.5 pages maximum on an assigned article, and will be uploaded the markdown file  on github the previous Wednesday of the lecture at 6:00 p.m. The report should address the following points: 
 * What is the research question of the article?
