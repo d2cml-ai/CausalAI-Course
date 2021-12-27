@@ -22,7 +22,7 @@ Every week students have to write a report about a scientific paper. The student
 *  How does this document advance knowledge about the question, that is, what is the contribution? (If you can't find any contributions, ask yourself why the editor and referees decided to publish the article.)
 * What would be one or two valuable and specific next steps to move forward on this question?
 
-## Work group
+## Teams
 The students will replicate scripts worked in labs and they will work in groups. 
 
 
