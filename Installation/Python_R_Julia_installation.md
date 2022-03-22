@@ -134,6 +134,7 @@ Now we are going to install some packages in R to make the kernel available to J
 > **_IMPORTANT:_** This option requires R to have been previously installed.
 
 1. Firstly you will need to start R terminal. To do so, search the folder where you install R previously. In this case, we have R in "C:\Program Files\R\R-4.1.1\bin". It will typically be there or in "Usuarios".
+
 <img src="img/Rprompt.png">
 
 2. Open the Anaconda prompt. Then type <code>cd</code> (your directory) such as:
@@ -141,7 +142,8 @@ Now we are going to install some packages in R to make the kernel available to J
     cd C:\Program Files\R\R-4.1.1\bin 
 ```
 It will set the directory to use R. So, type R to start.
-<img src="img/Rprompt_2.PNG">
+
+<img src="img/Rprompt_2.png">
 
 3.  After that, we will install packages to use a function that makes the kernel available to Jupyter using [IRKernel](https://irkernel.github.io/installation/#windows-panel). 
 
@@ -172,17 +174,17 @@ In this course, we will be using the current long-term support (LTS) version of 
 
 To Windows users, select the option in box.
 
-<img src="img/julia_install.PNG">
+<img src="img/julia_install.png">
 
 
 After running the executable, Julia will be installed on your system. Now we can access to Julia's terminal. In your search bar, type *Julia* and open the terminal. 
 
-<img src="img/julia_launcher.PNG">
+<img src="img/julia_launcher.png">
 
 
 The screen below will appear after you open Julia.
 
-<img src="img/julia_screen.PNG">
+<img src="img/julia_screen.png">
 
 
 
@@ -203,12 +205,12 @@ Now type the following command:
     
 The code above is adding the IJulia package to the Jupyter Notebook IDE, thae one we can access by using Anaconda Navigator. 
 
-<img src="img/julia_jupyter.PNG">
+<img src="img/julia_jupyter.png">
 
 
 After executing those commands, wait for 3–4 minutes. It automatically will establish a connection between Julia and Jupyter Notebook, and now a new Jupyter Notebook can be created with Julia.
 
-<img src="img/julia_jupyter_2.PNG">
+<img src="img/julia_jupyter_2.png">
 
 
 
