@@ -9,9 +9,9 @@
 
 - [Case 1: You have not installed Python before](#a-name"case1"a-case-1-you-have-not-installed-python-before)
   * [I. Installing Anaconda](#a-name"anaconda"ai-installing-anaconda)
-    + [A. Create a new environment in Anaconda to run R and Python](#a-name"environment"a-a-create-a-new-environment-in-anaconda-to-run-r-and-python)
-    + [B. Install Ikernel to run R in base (default) environment (not creating a new environment)](#a-name"ikernel"a-b-install-ikernel-to-run-r-in-base-default-environment-not-creating-a-new-environment)
-  * [II. Installing Julia](#a-name"julia"aii-installing-julia)
+  * [II. Installing R](#a-name"rstudio"ai-installing-r-and-r-studio)
+    + [A. Install Ikernel to run R in base (default) environment (not creating a new environment)](#a-name"ikernel"a-b-install-ikernel-to-run-r-in-base-default-environment-not-creating-a-new-environment)
+  * [III. Installing Julia](#a-name"julia"aii-installing-julia)
     + [A. What is Julia?](#a-name"juliaintro"a-a-what-is-julia)
     + [B. Running Julia in Jupyter Notebook](#a-name"juliajupyter"a-b-running-julia-in-jupyter-notebook)
 - [Case 2: You have installed Python or Anaconda before](#a-name"case2"acase-2-you-have-installed-python-or-anaconda-before)
@@ -48,41 +48,29 @@ After installing Anaconda, we will configure the necessary options to be able to
 
 &nbsp; 
 
-### <a name="environment"></a> A. Create a new environment in Anaconda to run R and Python
-1. Open Anaconda Navigator.
-<img src="open_anaconda_navigator.png">
+### <a name="rstudio"></a>I. Installing R
 
-2. Once opened, click on "Environments".
-<img src="img/environment.png">
+To install R, we will need to follow the following steps:
 
-3. Click on "Create" to create a new [environment](https://docs.anaconda.com/ae-notebooks/4.0/user/anaconda/).
-<img src="img/create.png">
+1. Click [here](https://cran.r-project.org/), and select your operating system. To Windows users, follow this guide:
 
-4. A new window will pop up. Set Python and R (as shown), and choose a name without spaces to avoid conflicts.
-<img src="img/Rtutorial.png">
+<img src="img/r_download.png">
 
-5. After waiting, you will visualize your new environment. As you can see, we named the new environment "R". 
+<img src="img/r_download_1.png">
 
-6. To launch Jupyter Notebook, go to "Home" section, and select the new environment you've just created.
-<img src="img/jupyter.png">
+<img src="img/r_download_2.png">
 
-7. Wait for some minutes until your environment is setting up. Then, look for "Jupyter Notebook" and click on it.
-<img src="img/launch.png">
+After that, all your need to do is to run the executable and R will be download in your computer.
 
-8. It will launch Jupyter Notebook on Chrome (or your default browser). Click on "New" and select which program to run.
-<img src="img/jupyter_launched.png">
 
-9. Write some code on R or Python. <br /> R script
-<img src="img/Rscript.png">
-<br /> Python script
-<img src="img/Pyscript.png">
 
 &nbsp; 
 
 &nbsp; 
 
-### <a name="ikernel"></a> B. Install Ikernel to run R in base (default) environment (not creating a new environment)
-The second option is to install some packages in R to make the kernel available to Jupyter Notebook. It can be accomplished by following these steps:
+### <a name="ikernel"></a> A. Install Ikernel to run R in base (default) environment 
+
+Now we are going to install some packages in R to make the kernel available to Jupyter Notebook. It can be accomplished by following these steps:
 
 > **_IMPORTANT:_** This option requires R to have been previously installed.
 
@@ -111,7 +99,7 @@ IRkernel::installspec()
 
 
 &nbsp; 
-### <a name="julia"></a>II. Installing Julia
+### <a name="julia"></a>III. Installing Julia
 
 &nbsp; 
 
