@@ -1,16 +1,34 @@
-# How to install Python and R in Jupyter?
 
-- [Case 1: You have not installed Python before](#case_1)
-  * [I. Installing Anaconda](#anaconda)
-    + [A. Create a new environment in Anaconda to run R and Python](#environment)
-    + [B. Install Ikernel to run R in base (default) environment (not creating a new environment)](#ikernel)
-- [Case 2: You have installed Python or Anaconda before](#case_2)
-  * [I. You just have Python installed but no Anaconda](#Py_A)
-  * [II. You have Anaconda installed](#justA)
 
+<div style="text-align: center"> 
+
+# How to install Python, R, and Julia in Jupyter Notebook?
+
+</div>
+
+
+- [Case 1: You have not installed Python before](#a-name"case1"a-case-1-you-have-not-installed-python-before)
+  * [I. Installing Anaconda](#a-name"anaconda"ai-installing-anaconda)
+    + [A. Create a new environment in Anaconda to run R and Python](#a-name"environment"a-a-create-a-new-environment-in-anaconda-to-run-r-and-python)
+    + [B. Install Ikernel to run R in base (default) environment (not creating a new environment)](#a-name"ikernel"a-b-install-ikernel-to-run-r-in-base-default-environment-not-creating-a-new-environment)
+  * [II. Installing Julia](#a-name"julia"aii-installing-julia)
+    + [A. What is Julia?](#a-name"juliaintro"a-a-what-is-julia)
+    + [B. Running Julia in Jupyter Notebook](#a-name"juliajupyter"a-b-running-julia-in-jupyter-notebook)
+- [Case 2: You have installed Python or Anaconda before](#a-name"case2"acase-2-you-have-installed-python-or-anaconda-before)
+  * [I. You just have Python installed but no Anaconda](#a-name"pya"a-i-you-just-have-python-installed-but-no-anaconda)
+  * [II. You have Anaconda installed](#a-name"justa"a-ii-you-have-anaconda-installed)
+
+
+
+
+&nbsp; 
 ## <a name="case_1"></a> **Case 1: You have not installed Python before**
+---
+&nbsp; 
+
 We will install Anaconda first and then set up  features to run R in Jupyter. 
 
+&nbsp; 
 ### <a name="anaconda"></a>I. Installing Anaconda 
 
 Follow these steps to install Anaconda correctly:
@@ -23,36 +41,45 @@ Follow these steps to install Anaconda correctly:
 6. After installing, you will see a new program installed on your PC by typing "Anaconda" on Windows.
 ![Imagen_2](https://docs.anaconda.com/_images/win-navigator.png)
 
+
+&nbsp; 
+
 After installing Anaconda, we will configure the necessary options to be able to run R in a Jupyter Notebook. To do so, we have two options:
+
+&nbsp; 
 
 ### <a name="environment"></a> A. Create a new environment in Anaconda to run R and Python
 1. Open Anaconda Navigator.
 <img src="open_anaconda_navigator.png">
 
 2. Once opened, click on "Environments".
-<img src="environment.png">
+<img src="img/environment.png">
 
 3. Click on "Create" to create a new [environment](https://docs.anaconda.com/ae-notebooks/4.0/user/anaconda/).
-<img src="create.png">
+<img src="img/create.png">
 
 4. A new window will pop up. Set Python and R (as shown), and choose a name without spaces to avoid conflicts.
-<img src="Rtutorial.png">
+<img src="img/Rtutorial.png">
 
 5. After waiting, you will visualize your new environment. As you can see, we named the new environment "R". 
 
 6. To launch Jupyter Notebook, go to "Home" section, and select the new environment you've just created.
-<img src="jupyter.png">
+<img src="img/jupyter.png">
 
 7. Wait for some minutes until your environment is setting up. Then, look for "Jupyter Notebook" and click on it.
-<img src="launch.png">
+<img src="img/launch.png">
 
 8. It will launch Jupyter Notebook on Chrome (or your default browser). Click on "New" and select which program to run.
-<img src="jupyter_launched.png">
+<img src="img/jupyter_launched.png">
 
 9. Write some code on R or Python. <br /> R script
-<img src="Rscript.png">
+<img src="img/Rscript.png">
 <br /> Python script
-<img src="Pyscript.png">
+<img src="img/Pyscript.png">
+
+&nbsp; 
+
+&nbsp; 
 
 ### <a name="ikernel"></a> B. Install Ikernel to run R in base (default) environment (not creating a new environment)
 The second option is to install some packages in R to make the kernel available to Jupyter Notebook. It can be accomplished by following these steps:
@@ -60,14 +87,14 @@ The second option is to install some packages in R to make the kernel available 
 > **_IMPORTANT:_** This option requires R to have been previously installed.
 
 1. Firstly you will need to start R terminal. To do so, search the folder where you install R previously. In this case, we have R in "C:\Program Files\R\R-4.1.1\bin". It will typically be there or in "Usuarios".
-<img src="Rprompt.png">
+<img src="img/Rprompt.png">
 
 2. Open the Anaconda prompt. Then type <code>cd</code> (your directory) such as:
 ```
     cd C:\Program Files\R\R-4.1.1\bin 
 ```
 It will set the directory to use R. So, type R to start.
-<img src="Rprompt_2.PNG">
+<img src="img/Rprompt_2.PNG">
 
 3.  After that, we will install packages to use a function that makes the kernel available to Jupyter using [IRKernel](https://irkernel.github.io/installation/#windows-panel). 
 
@@ -82,25 +109,83 @@ IRkernel::installspec()
 5. Follow step 6 of [section I](#anaconda) to launch Jupyter Notebook.
 
 
+
+&nbsp; 
+### <a name="julia"></a>II. Installing Julia
+
+&nbsp; 
+
+### <a name="julia_intro"></a> A. What is Julia?
+
+Julia is a high-level dynamic programming language. It is used by Machine Learning Researchers and Practitioners as it is developing a bunch of Machine Learning packages and Frameworks rapidly.
+
+One programming language which is in competition with Python is Julia. As well as Python, Julia is also a high-level programming language, where we can write less amount of code as in Python. However, if we compare the speed of Python with Julia, here Julia takes the advantage. Julia is much faster than Python, and also solves its speed limitation.
+
+In this course, we will be using the current long-term support (LTS) version of Julia, **1.6.5**. You can download Julia by clicking [here](https://julialang.org/downloads/). After clicking in the selected version, the download option will come up and based on your operating system choose the right option to download Julia. 
+
+To Windows users, select the option in box.
+<img src="img/julia_install.PNG">
+
+After running the executable, Julia will be installed on your system. Now we can access to Julia's terminal. In your search bar, type *Julia* and open the terminal. 
+<img src="img/julia_launcher.PNG">
+
+The screen below will appear after you open Julia.
+<img src="img/julia_screen.PNG">
+
+
+
+&nbsp; 
+
+### <a name="julia_jupyter"></a> B. Running Julia in Jupyter Notebook
+
+On the Julia terminal, write 
+
+    using Pkg
+
+That's similar to the *import* statement in Python. 
+
+Now type the following command:
+
+    Pkg.add(“IJulia”)
+    
+The code above is adding the IJulia package to the Jupyter Notebook IDE, that we can access using Anaconda Navigator. 
+
+<img src="img/julia_jupyter.PNG">
+
+After executing those commands, wait for 3–4 minute. It automatically will establish a connection between Julia and Jupyter Notebook, and now a new Jupyter Notebook can be created with Julia.
+
+<img src="img/julia_jupyter_2.PNG">
+
+
+
+
+&nbsp; 
 ## <a name="case_2"></a>**Case 2: You have installed Python or Anaconda before**
+---
+&nbsp; 
 
 Anaconda is an open-source distributor of Python and R. It aims to simplify package management and deployment. The packages are managed by conda system. It means it make your life easier when installing basic packages such as <code>numpy</code> or <code>pandas</code>. Therefore, it would be a lot easier to use Anaconda. 
 
+&nbsp; 
 > **_RECOMMENDATIONS:_** 
 > 1. We highly recommend uninstalling Python completely. Even some folders left can cause problems with packages in the future. So make sure you have no folders named "Python" or "Anaconda".
 > 2. To uninstall Python or Anaconda correctly, it should be done from the control panel.
 
+&nbsp; 
 ### <a name="Py_A"></a> I. You just have Python installed but no Anaconda
 If you have Python installed, we encourage you to change it to Anaconda, which also has a friendly navigator called "Anaconda Navigator" to check your packages and environments. To install Anaconda correctly, Python must be removed from your system completely. [Here](https://www.educative.io/edpresso/how-to-uninstall-python) we leave you a guide to do it. After uninstalling Python, follow the steps to install Anaconda as [section I](Python_R_installation.md#anaconda) explains.
 
+
+&nbsp; 
 ### <a name="justA"></a> II. You have Anaconda installed
 
 We encourage you to uninstall Anaconda completely in order to set configurations correctly. To do so, Make sure you uninstall Anaconda correctly by following these [steps](https://docs.anaconda.com/anaconda/install/uninstall/). Even folders left can cause problems with packages in the future. So make sure you have no folders named "Python" or "Anaconda".
 
 If you prefer to keep Anaconda as you installed it in the past, **make sure you don't have Anaconda added to your <code>PATH</code> environment, because you could have problems creating a new environment.**
 
-
+&nbsp; 
 > **_RECOMMENDATIONS:_** 
 > 1. Uninstall Anaconda completely in order to set configurations correctly. Even folders left can cause problems with packages in the future. So make sure you have no folders named "Python" or "Anaconda".
 > 2. To uninstall Python or Anaconda correctly, it should be done from the control panel.
 > 3. Make sure Anaconda **IS NOT** added to your <code>PATH</code> environment, because you could have problems creating a new environment.
+
