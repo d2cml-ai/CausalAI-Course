@@ -198,11 +198,11 @@ Now type the following command:
 
     Pkg.add(“IJulia”)
     
-The code above is adding the IJulia package to the Jupyter Notebook IDE, that we can access using Anaconda Navigator. 
+The code above is adding the IJulia package to the Jupyter Notebook IDE, thae one we can access by using Anaconda Navigator. 
 
 <img src="img/julia_jupyter.PNG">
 
-After executing those commands, wait for 3–4 minute. It automatically will establish a connection between Julia and Jupyter Notebook, and now a new Jupyter Notebook can be created with Julia.
+After executing those commands, wait for 3–4 minutes. It automatically will establish a connection between Julia and Jupyter Notebook, and now a new Jupyter Notebook can be created with Julia.
 
 <img src="img/julia_jupyter_2.PNG">
 
