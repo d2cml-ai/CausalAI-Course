@@ -11,7 +11,7 @@
   * [I. Installing Anaconda](#a-name"anaconda"ai-installing-anaconda)
   * [II. Installing R and R Studio](#a-name"rstudio"ai-installing-r-and-r-studio)
     + [A. Install Ikernel to run R in base (default) environment (not creating a new environment)](#a-name"ikernel"a-a-install-ikernel-to-run-r-in-base-default-environment)
-  * [III. Installing Julia](#a-name"julia"aii-installing-julia)
+  * [III. Installing Julia](#a-name"julia"aiii-installing-julia)
     + [A. What is Julia?](#a-name"juliaintro"a-a-what-is-julia)
     + [B. Running Julia in Jupyter Notebook](#a-name"juliajupyter"a-b-running-julia-in-jupyter-notebook)
 - [Case 2: You have installed Python or Anaconda before](#a-name"case2"acase-2-you-have-installed-python-or-anaconda-before)
