@@ -9,7 +9,7 @@
 
 - [Case 1: You have not installed Python before](#a-name"case1"a-case-1-you-have-not-installed-python-before)
   * [I. Installing Anaconda](#a-name"anaconda"ai-installing-anaconda)
-  * [II. Installing R](#a-name"rstudio"ai-installing-r-and-r-studio)
+  * [II. Installing R and R Studio](#a-name"rstudio"ai-installing-r-and-r-studio)
     + [A. Install Ikernel to run R in base (default) environment (not creating a new environment)](#a-name"ikernel"a-b-install-ikernel-to-run-r-in-base-default-environment-not-creating-a-new-environment)
   * [III. Installing Julia](#a-name"julia"aii-installing-julia)
     + [A. What is Julia?](#a-name"juliaintro"a-a-what-is-julia)
@@ -48,7 +48,11 @@ After installing Anaconda, we will configure the necessary options to be able to
 
 &nbsp; 
 
-### <a name="rstudio"></a>I. Installing R
+### <a name="rstudio"></a>I. Installing R and R Studio
+
+To complete this process correctly, take into account that R Studio works under R. Then, it is important to **FIRST** install R and later R Studio.
+
+* R 
 
 To install R, we will need to follow the following steps:
 
@@ -58,9 +62,64 @@ To install R, we will need to follow the following steps:
 
 <img src="img/r_download_1.png">
 
+2. We are using the latest version or **R-4.1.3**.
+
 <img src="img/r_download_2.png">
 
-After that, all your need to do is to run the executable and R will be download in your computer.
+After that, all your need to do is to run the executable and R will be downloaded in your computer.
+
+3. Follow this steps:
+
+<img src="img/r_download_3.png">
+
+4. **It is important to remember the path where R is being downloaded.**
+
+<img src="img/r_download_4.png">
+
+5. If you have a 64-bit operating system, then you don't need to select the 32-bit option.
+
+<img src="img/r_download_5.png">
+
+6. Continue with this process:
+
+<img src="img/r_download_6.png">
+
+<img src="img/r_download_7.png">
+
+<img src="img/r_download_8.png">
+
+7. Final steps:
+
+<img src="img/r_download_9.png">
+
+8. Finally, R will be corecctly downloaded in your computer.
+
+<img src="img/r_download_10.png">
+
+
+&nbsp; 
+
+* R Studio
+
+1. Click [here](https://www.rstudio.com/products/rstudio/download/) to go to the official web site of R Studio and to select the best option for you.
+
+2. Windows users would select this executable:
+
+<img src="img/r_studio_1.png">
+
+3. Run the executable and follow this guide:
+
+<img src="img/r_studio_2.png">
+
+<img src="img/r_studio_3.png">
+
+<img src="img/r_studio_4.png">
+
+<img src="img/r_studio_5.png">
+
+
+Congratulations! Now you can run both programs.
+
 
 
 
