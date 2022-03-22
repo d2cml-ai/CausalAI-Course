@@ -187,7 +187,7 @@ After running the executable, Julia will be installed on your system. Now we can
 
 The screen below will appear after you open Julia.
 
-<img src="img/julia_screen.png"> 
+<img src="img/julia_screen.PNG"> 
 
 
 
