@@ -174,13 +174,16 @@ To Windows users, select the option in box.
 
 <img src="img/julia_install.PNG">
 
+
 After running the executable, Julia will be installed on your system. Now we can access to Julia's terminal. In your search bar, type *Julia* and open the terminal. 
 
 <img src="img/julia_launcher.PNG">
 
+
 The screen below will appear after you open Julia.
 
 <img src="img/julia_screen.PNG">
+
 
 
 
@@ -202,9 +205,11 @@ The code above is adding the IJulia package to the Jupyter Notebook IDE, thae on
 
 <img src="img/julia_jupyter.PNG">
 
+
 After executing those commands, wait for 3–4 minutes. It automatically will establish a connection between Julia and Jupyter Notebook, and now a new Jupyter Notebook can be created with Julia.
 
 <img src="img/julia_jupyter_2.PNG">
+
 
 
 
