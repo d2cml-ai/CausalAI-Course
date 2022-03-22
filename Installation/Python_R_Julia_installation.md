@@ -134,8 +134,9 @@ Now we are going to install some packages in R to make the kernel available to J
 > **_IMPORTANT:_** This option requires R to have been previously installed.
 
 1. Firstly you will need to start R terminal. To do so, search the folder where you install R previously. In this case, we have R in "C:\Program Files\R\R-4.1.1\bin". It will typically be there or in "Usuarios".
-
+2. 
 <img src="img/Rprompt.png">
+
 
 2. Open the Anaconda prompt. Then type <code>cd</code> (your directory) such as:
 ```
@@ -144,6 +145,7 @@ Now we are going to install some packages in R to make the kernel available to J
 It will set the directory to use R. So, type R to start.
 
 <img src="img/Rprompt_2.png">
+
 
 3.  After that, we will install packages to use a function that makes the kernel available to Jupyter using [IRKernel](https://irkernel.github.io/installation/#windows-panel). 
 
