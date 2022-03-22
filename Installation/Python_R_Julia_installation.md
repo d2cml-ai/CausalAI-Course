@@ -62,11 +62,11 @@ To install R, we will need to follow the following steps:
 
 <img src="img/r_download_1.png">
 
-2. We are using the latest version or **R-4.1.3**.
+2. We are using the latest version of **R-4.1.3**.
 
 <img src="img/r_download_2.png">
 
-After that, all your need to do is to run the executable and R will be downloaded in your computer.
+After that, all you need to do is to run the executable and R will be downloaded in your computer.
 
 3. Follow this steps:
 
@@ -171,12 +171,15 @@ One programming language which is in competition with Python is Julia. As well a
 In this course, we will be using the current long-term support (LTS) version of Julia, **1.6.5**. You can download Julia by clicking [here](https://julialang.org/downloads/). After clicking in the selected version, the download option will come up and based on your operating system choose the right option to download Julia. 
 
 To Windows users, select the option in box.
+
 <img src="img/julia_install.PNG">
 
 After running the executable, Julia will be installed on your system. Now we can access to Julia's terminal. In your search bar, type *Julia* and open the terminal. 
+
 <img src="img/julia_launcher.PNG">
 
 The screen below will appear after you open Julia.
+
 <img src="img/julia_screen.PNG">
 
 
@@ -195,11 +198,11 @@ Now type the following command:
 
     Pkg.add(“IJulia”)
     
-The code above is adding the IJulia package to the Jupyter Notebook IDE, that we can access using Anaconda Navigator. 
+The code above is adding the IJulia package to the Jupyter Notebook IDE, thae one we can access by using Anaconda Navigator. 
 
 <img src="img/julia_jupyter.PNG">
 
-After executing those commands, wait for 3–4 minute. It automatically will establish a connection between Julia and Jupyter Notebook, and now a new Jupyter Notebook can be created with Julia.
+After executing those commands, wait for 3–4 minutes. It automatically will establish a connection between Julia and Jupyter Notebook, and now a new Jupyter Notebook can be created with Julia.
 
 <img src="img/julia_jupyter_2.PNG">
 
