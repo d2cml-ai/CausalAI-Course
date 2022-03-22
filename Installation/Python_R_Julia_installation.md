@@ -187,8 +187,6 @@ The screen below will appear after you open Julia.
 <img src="img/julia_screen.png">
 
 
-
-
 &nbsp; 
 
 ### <a name="julia_jupyter"></a> B. Running Julia in Jupyter Notebook
