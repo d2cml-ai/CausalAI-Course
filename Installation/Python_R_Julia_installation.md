@@ -10,7 +10,7 @@
 - [Case 1: You have not installed Python before](#a-name"case1"a-case-1-you-have-not-installed-python-before)
   * [I. Installing Anaconda](#a-name"anaconda"ai-installing-anaconda)
   * [II. Installing R and R Studio](#a-name"rstudio"ai-installing-r-and-r-studio)
-    + [A. Install Ikernel to run R in base (default) environment (not creating a new environment)](#a-name"ikernel"a-b-install-ikernel-to-run-r-in-base-default-environment-not-creating-a-new-environment)
+    + [A. Install Ikernel to run R in base (default) environment (not creating a new environment)](#a-name"ikernel"a-a-install-ikernel-to-run-r-in-base-default-environment)
   * [III. Installing Julia](#a-name"julia"aii-installing-julia)
     + [A. What is Julia?](#a-name"juliaintro"a-a-what-is-julia)
     + [B. Running Julia in Jupyter Notebook](#a-name"juliajupyter"a-b-running-julia-in-jupyter-notebook)
