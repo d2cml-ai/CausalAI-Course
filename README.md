@@ -5,6 +5,18 @@ The Lectures are on Thuersday 19:00 - 21:00 (https://pucp.zoom.us/j/2115360284).
 The Tutorials are on Friday 08:00 - 10:00.
 
 
+
+## Topics this course covers are:
+
+* Prediction/Inference with High Dimensional Linear Models
+* Prediction in Modern Nonlinear Regressions (Random Forest and Deep Neural Networks)
+* Randomized Control Trials
+* Causal DAGs
+* Double/debiased Machine Learning
+* Heterogeneous Treatment Effects using Causal Trees
+* Heterogeneous Treatment Effects using Causal Forest
+* Feature Engineering With Deep Learning for Causal and Predictive Inference
+
 ## Weekly Reports 
 Every week students have to write a report about a scientific paper. The students will write a report of 1 or 1.5 pages maximum on an assigned article, and will be uploaded the markdown file  on github the previous Wednesday of the lecture at 6:00 p.m. The report should address the following points: 
 * What is the research question of the article?
@@ -12,7 +24,9 @@ Every week students have to write a report about a scientific paper. The student
 *  How does this document advance knowledge about the question, that is, what is the contribution? (If you can't find any contributions, ask yourself why the editor and referees decided to publish the article.)
 * What would be one or two valuable and specific next steps to move forward on this question?
 
+
 ## Teamwork
+
 The students will replicate scripts worked in labs and they will work in groups. 
 
 
