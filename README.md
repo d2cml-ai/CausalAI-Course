@@ -1,7 +1,9 @@
 # ECO224-Causal Inference and Machine Learning
 This is a repository for the course ECO224 Causal Inference and Machine Learning at PUCP. 
 
-The classes are on Thuersday 20:00 - 22:00.
+The Lectures are on Thuersday 19:00 - 21:00 (https://pucp.zoom.us/j/2115360284). \
+The Tutorials are on Friday 08:00 - 10:00.
+
 
 
 ## Topics this course covers are:
@@ -22,10 +24,26 @@ Every week students have to write a report about a scientific paper. The student
 *  How does this document advance knowledge about the question, that is, what is the contribution? (If you can't find any contributions, ask yourself why the editor and referees decided to publish the article.)
 * What would be one or two valuable and specific next steps to move forward on this question?
 
-## Teams
+
+## Teamwork
+
 The students will replicate scripts worked in labs and they will work in groups. 
 
 
+
+
+## Second Cohort, 2022-1
+Group_1 | Group_2 | Group_3 | Group_4
+--------|---------|---------|--------
+TANG MAURICIO, JUAN JOSE | QUISPE MACAVILCA, LUIS CLAUDIO | ULLOA DEL CASTILLO, ANDREA ISABEL | ALVAREZ ZAMUDIO, LUCIANA CAROLINA
+OLIVERA GARCIA, VICTORIA REGINA | ZAPATA ROJAS, ALVARO DANTE | ANGULO COLINA, ANA CRISTINA | MOSCOSO CAYO, KENIA PAOLA
+COTRINA CCOLLANA, URSULA VICTORIA | ESTEBAN QUISPE, DIEGO ANDREÉ | COAPAZA OCOLA, ANGELA SOFIA | CHUQUILIN ROSALES, RICK ABRAHAN
+
+
+<br/><br/>
+
+
+## First Cohort, 2021-2
 Group_1 | Group_2 | Group_3 | Group_4
 ------- | ------- | ------- | -------
 SALAZAR CONTRERAS, SERGIO ERICK | HUGO CUNIBERTI, KIARA PAOLA | GONZALEZ AVILA, CARLOS ANTONIO | FERNANDEZ SANCHEZ, ROSEMERY
