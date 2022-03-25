@@ -12,7 +12,7 @@ Sandra Martínez Gutiérrez\
 Jesús Soto Enríquez
 
 
-Programming Languages:
+Three Programming Languages:
 1. R
 2. Python
 3. Julia
