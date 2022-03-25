@@ -148,7 +148,7 @@ Now we are going to install some packages in R to make the kernel available to J
     ```
     It will set the directory to use R. So, type R to start.
 
-    <img src="img/r_update.png">
+    <img src="img/r_update.PNG">
 
 4.  After that, we will install packages to use a function that makes the kernel available to Jupyter using [IRKernel](https://irkernel.github.io/installation/#windows-panel). 
 
@@ -161,7 +161,7 @@ Now we are going to install some packages in R to make the kernel available to J
 
     It will open a CRAN mirror. Choose "USA (OR) (https)". 
 
-    <img src="img/r_update_1.png">
+    <img src="img/r_update_1.PNG">
 
 
 6. After installing, type the following to allow the kernel spec to be installed in the current user. 
@@ -172,7 +172,7 @@ Now we are going to install some packages in R to make the kernel available to J
 
     Probably, this warning will appear:
 
-    <img src="img/r_update_2.png">
+    <img src="img/r_update_2.PNG">
 
     If so, type 
 
@@ -187,7 +187,7 @@ Now we are going to install some packages in R to make the kernel available to J
     devtools::install_github('IRkernel/IRkernel')
     ```
 
-    <img src="img/r_update_3.png">
+    <img src="img/r_update_3.PNG">
 
     If a similar warning as the previous one appear, please type
 
