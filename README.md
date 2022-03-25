@@ -12,6 +12,11 @@ Sandra Martínez Gutiérrez\
 Jesús Soto Enríquez
 
 
+Programming Languages:
+1. R
+2. Python
+3. Julia
+
 
 ## Topics this course covers are:
 
