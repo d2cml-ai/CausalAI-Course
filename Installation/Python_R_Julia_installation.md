@@ -140,6 +140,7 @@ Now we are going to install some packages in R to make the kernel available to J
 2. Now, you will need to start R terminal. To do so, search the folder where you installed R previously. In this case, we have R in "C:\Program Files\R\R-4.1.1\bin". It will typically be there or in "Usuarios".
 
     <img src="img/Rprompt.png">
+    
 
 3. Open the Anaconda prompt. Then type <code>cd</code> (your directory) such as:
 
@@ -230,7 +231,8 @@ After running the executable, Julia will be installed on your system. Now we can
 
 The screen below will appear after you open Julia.
 
-<img src="img/julia_screen.png">
+<img src="img/julia_screen.PNG"> 
+
 
 
 &nbsp; 

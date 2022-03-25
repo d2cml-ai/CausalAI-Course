@@ -1,0 +1,19 @@
+## REPORTE 2 
+### INFERENCE FOR  HIGH-DIMENSIONAL SPARSE ECONOMETRIC MODELS
+#### Belloni, Chernozhukov and Hansen (2017)
+#
+ Acording to the article, It explains us about HIgh Dimensional Sparse model (HDS) and how it is so important for data science and specially it could help people who studies economics. The main question is relative to search the best method which help identifyng the set of regressors that can estimate the entire regression function,estimates the coefficientes using the L1 penalty and describe their results. One feature to considering is the number or regressors(p) are greater than the number of the sample (n), but it selects only s regressors in the case where s<n.
+
+ About the advantages, I believe is the way how the authors support and develop their assumptions to find an answer available. They add models to compare coefficients and results to make a decition which could be the most appropiate for their research. For example, They proposes a model with structural effects with high-dimensional instruments and a model with treatment and structural effects conditional on observables used to estimate structural effects. 
+ 
+ Respect of contribution, the article presents empirical examples what could help to understad better methods of the HDS models, another would be the contribution about the use of instrumental variables or partially lineal models. A long of the article, the authors mention two empirical examples.
+
+ I think one of the nexts steps to advance in this research would be the using other methods to make estimates without penalty like the L1. In addition, one way to continue this article is extend the HDS models and methods for estimating structural economics objects.
+
+
+
+.
+
+
+
+ M.T
