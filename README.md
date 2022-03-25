@@ -15,7 +15,7 @@ Jesús Soto Enríquez
 Three Programming Languages:
 1. R
 2. Python
-3. Julia
+3. Julia.
 
 
 ## Topics this course covers are:
