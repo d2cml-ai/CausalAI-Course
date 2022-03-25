@@ -5,7 +5,7 @@ The Lectures are on Thuersday 19:00 - 21:00 (https://pucp.zoom.us/j/2115360284).
 The Tutorials are on Friday 08:00 - 10:00.
 
 Lecturer: \
-Alexander Quispe
+Alexander Quispe Rojas
 
 Teaching Assistant: \
 Roberto Mendoza Matos
