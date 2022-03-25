@@ -58,43 +58,43 @@ To install R, we will need to follow the following steps:
 
 1. Click [here](https://cran.r-project.org/), and select your operating system. To Windows users, follow this guide:
 
-<img src="img/r_download.png">
+    <img src="img/r_download.png">
 
-<img src="img/r_download_1.png">
+    <img src="img/r_download_1.png">
 
 2. We are using the latest version of **R-4.1.3**.
 
-<img src="img/r_download_2.png">
+    <img src="img/r_download_2.png">
 
-After that, all you need to do is to run the executable and R will be downloaded in your computer.
+    After that, all you need to do is to run the executable and R will be downloaded in your computer.
 
 3. Follow this steps:
 
-<img src="img/r_download_3.png">
+    <img src="img/r_download_3.png">
 
 4. **It is important to remember the path where R is being downloaded.**
 
-<img src="img/r_download_4.png">
+    <img src="img/r_download_4.png">
 
 5. If you have a 64-bit operating system, then you don't need to select the 32-bit option.
 
-<img src="img/r_download_5.png">
+    <img src="img/r_download_5.png">
 
 6. Continue with this process:
 
-<img src="img/r_download_6.png">
+    <img src="img/r_download_6.png">
 
-<img src="img/r_download_7.png">
+    <img src="img/r_download_7.png">
 
-<img src="img/r_download_8.png">
+    <img src="img/r_download_8.png">
 
 7. Final steps:
 
-<img src="img/r_download_9.png">
+    <img src="img/r_download_9.png">
 
 8. Finally, R will be corecctly downloaded in your computer.
 
-<img src="img/r_download_10.png">
+    <img src="img/r_download_10.png">
 
 
 &nbsp; 
@@ -105,17 +105,17 @@ After that, all you need to do is to run the executable and R will be downloaded
 
 2. Windows users would select this executable:
 
-<img src="img/r_studio_1.png">
+    <img src="img/r_studio_1.png">
 
 3. Run the executable and follow this guide:
 
-<img src="img/r_studio_2.png">
+    <img src="img/r_studio_2.png">
 
-<img src="img/r_studio_3.png">
+    <img src="img/r_studio_3.png">
 
-<img src="img/r_studio_4.png">
+    <img src="img/r_studio_4.png">
 
-<img src="img/r_studio_5.png">
+    <img src="img/r_studio_5.png">
 
 
 Congratulations! Now you can run both programs.
@@ -133,32 +133,76 @@ Now we are going to install some packages in R to make the kernel available to J
 
 > **_IMPORTANT:_** This option requires R to have been previously installed.
 
-1. Firstly you will need to start R terminal. To do so, search the folder where you install R previously. In this case, we have R in "C:\Program Files\R\R-4.1.1\bin". It will typically be there or in "Usuarios".
+1. First, we are going to install [Git](https://git-scm.com/download/win). Select the executable that is compatible with your operating system. Then, follow all the steps to complete the installation.
+
+    <img src="img/git.png">
+
+2. Now, you will need to start R terminal. To do so, search the folder where you installed R previously. In this case, we have R in "C:\Program Files\R\R-4.1.1\bin". It will typically be there or in "Usuarios".
+
+    <img src="img/Rprompt.png">
+    
+
+3. Open the Anaconda prompt. Then type <code>cd</code> (your directory) such as:
+
+    ```
+        C:\Program Files\R\R-4.1.3\bin>R
+    ```
+    It will set the directory to use R. So, type R to start.
+
+    <img src="img/r_update.PNG">
+
+4.  After that, we will install packages to use a function that makes the kernel available to Jupyter using [IRKernel](https://irkernel.github.io/installation/#windows-panel). 
 
 
-<img src="img/Rprompt.png">
+5. Install the following packages by typing:
+
+    ```ruby
+    install.packages(c('pbdZMQ', 'repr', 'devtools'))
+    ```
+
+    It will open a CRAN mirror. Choose "USA (OR) (https)". 
+
+    <img src="img/r_update_1.PNG">
 
 
-2. Open the Anaconda prompt. Then type <code>cd</code> (your directory) such as:
-```
-    cd C:\Program Files\R\R-4.1.1\bin 
-```
-It will set the directory to use R. So, type R to start.
+6. After installing, type the following to allow the kernel spec to be installed in the current user. 
 
-<img src="img/Rprompt_2.PNG">
+    ```ruby
+    devtools::install_github('IRkernel/IRdisplay')
+    ```
+
+    Probably, this warning will appear:
+
+    <img src="img/r_update_2.PNG">
+
+    If so, type 
+
+    ```
+    force=TRUE
+    ```
+
+7. Now, continue
 
 
-3.  After that, we will install packages to use a function that makes the kernel available to Jupyter using [IRKernel](https://irkernel.github.io/installation/#windows-panel). 
+    ```ruby
+    devtools::install_github('IRkernel/IRkernel')
+    ```
 
-4. Install the following packages by typing:
-```ruby
-install.packages(c('repr', 'IRdisplay', 'IRkernel'), type = 'source')
-```
-4. It will open a CRAN mirror. Choose "USA (OR) (https)". After installing, type the following to allow the kernel spec can be installed for the current user. 
-```ruby
-IRkernel::installspec()
-```
-5. Follow step 6 of [section I](#anaconda) to launch Jupyter Notebook.
+    <img src="img/r_update_3.PNG">
+
+    If a similar warning as the previous one appear, please type
+
+    ```
+    force=TRUE
+    ```
+
+8. Finally, write this command.
+
+    ```ruby
+    IRkernel::installspec()  
+    ```
+
+9. Follow step 6 of [section I](#anaconda) to launch Jupyter Notebook and check if you can run R.
 
 
 
