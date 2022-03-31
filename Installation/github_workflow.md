@@ -3,85 +3,83 @@
 # ECO2224
 ## INFERENCIA CAUSAL Y MACHINE LEARNING 
 ---
-## Workflow en GitHub
+## Workflow using Github
 ---
 
 </div>
 
 
-Luego de haber clonado el [repositorio](https://github.com/alexanderquispe/ECO224) del curso en nuestras computadoras, estamos listos para poder explorar su contenido de forma local. Recordemos que, luego de haber recibido la invitación para ser parte del repositorio, nos hemos convertido en ***contributors*** para los proyectos o tareas que se generen dentro de él. Siendo así, cada vez que deseemos agregar archivos, debemos seguir un esquema de trabajo que se detallará a continuación. 
+Once we have cloned our [repository](https://github.com/alexanderquispe/ECO224) on our computers, we are now ready to explore its content locally. Notice that when we accepted the invitation to collaborate, we became ***contributors*** to any project or assignment within it. Therefore, every time we want to add some files, we should follow the workflow detailed below.
 
-## 1. Creando un branch
+<br>
 
-- Ve a https://github.com/alexanderquispe/ECO224, y haz click al botón que dice *(símbolo branch) main*. **Asegúrese que sea el main.**
+## 1. Creating a branch
 
-    ![](img/wf1.png) 
+- Go to https://github.com/alexanderquispe/ECO224, and click on the button * *(branch symbol) main* * . **Make sure you are in the main**.
 
-- Cree su branch llamado "codigo_r1" en el cuadro de diálogo y dale click a lo encerrado en rojo para crear la rama. 
+    ![](img/wf1.png)
 
-    ![](img/wf2.png) 
+- Create your branch "codigo_r1" and click on the box.  
 
-- Como último paso, ve a GitHub Destop y dale click en Fetch Origin para actualizar los cambios, y selecciona tu branch. Ahora empezaremos a hacer las modificaciones al reposotiorio.
+    ![](img/wf2.png)
+
+- As a final step, go to GitHub Desktop and click on Fetch Origin to update the changes, then select your branch. Now we can start to make the modifications to the repository from our computers.
 
     ![](img/wf3.png) 
-
-- ¡Ahora ya puedes realizar modificaciones al repositorio de forma independiente!
-
-
-## 2. Commits
-
-Cuando agreguemos o editemos archivos en nuestra carpeta clonada, nuestro Github Desktop Mostrará la siguiente ventana:
-
-![](img/wf4.PNG)
-
-Github desktop se ha dado cuenta que hay nuevos cambios. Todo aquello resaltado en verde debe entenderse como "entradas" al documento. Por otro lado, si hubiera entradas resaltadas en rojo, estas se reconocen como "salidas" o cualquier "delete" realizado a las líneas de código. 
-
-> Nota: Cualquier modificación que se haga dentro de la carpeta clonada tendrá un sync inmediato en el GitHub Desktop. 
-
-Luego de haber agregado archivos a nuestra carpeta, vamos a generar un commit siguiendo estos pasos: 
-
-Para que estos nuevos archivos, subido a la carpeta clonada, se vean en el repositorio del curso (*para que suba a la nube del repo*, debemos añadir un pequeño comentario sobre **Summary (required)**. 
-
-![](img/wf6.png) 
- 
-Esto hará que el botón azul **Commit to main** se active, y se pueda hacer el merge con el main branch del repositorio. 
-
-![](img/wf5.png) 
-
-
-## 3. Pull request
-
-
- Selecciones *Push Origin*  
-
-        ![](img/pull_request.png) 
-
-    * Seleccione *Create Pull request*. Esta acción lo dirigirá a una ventana en el navegador.
-
-        ![](img/pull_request_2.png) 
-
-    * Haga click nuevamente en *Create Pull request*.
-
-        ![](img/pull_request_3.png) 
-
-    * Haga click en *Merge Pull Request*.
-
-        ![](img/pull_request_4.png)
-            
-    * Luego, haga click en *Confirm Pull Request*
-
-        ![](img/pull_request_5.png) 
-
-    * **IMPORTANTE:** Finalmente, elimine su branch dando click en *Delete branch*.
-        
-        ![](img/pull_request_6.png) 
-  
 
 
 <br>
 
-### Aprender Github desde el command line: 
+## 2. Commits
 
-- En este tutorial, hemos lo visto los elementos esenciales para utilizar Github,; sin embargo, hay una forma de usar Github desde la consola. Aquí hay una lista de referencias en caso desee explorar más sobre este uso: https://education.github.com/git-cheat-sheet-education.pdf
+When we add or edit files in our cloned folder, our Github Desktop will display the following window:
+
+![](img/wf4.PNG)
+
+Github Desktop has noticed that there are new changes. For example, everything highlighted in green should be understood as "inputs". On the other hand, if there were entries highlighted in red, these are recognized as "deletes" made to the code lines. 
+
+> Note: Any modification made within the cloned folder will have an immediate sync in GitHub Desktop.
+
+After having added files to our folder, we will generate a commit by following these steps:
+
+If we want to see these new files in the repository (to be uploaded into the repository cloud), we must add a small comment in **Summary (required)**. 
+
+![](img/wf6.png) 
+ 
+This will activate the blue button **Commit to branch**, and then we will be able to the merge our edits to our branch.
+
+![](img/wf5.png) 
 
 
+
+<br>
+
+## 3. Pull request
+
+
+When your edits are ready to be merged, you can make a pull request to integrate your edits into the main branch.
+
+1. Select *Push Origin*  
+
+    ![](img/wf7.png) 
+
+2. Select *Create Pull request*. This will open a window in the browser.
+
+    ![](img/wf8.png) 
+
+3. Make sure that the main branch is selected as *base: main*, and that your branch is in *compare: codigo_r1*. Now, click on *Create Pull request*.
+
+    ![](img/wf9.png) 
+
+4. Click on *Merge Pull Request*.
+
+    ![](img/wf10.png) 
+            
+5. Then, click on *Confirm merge*.
+
+    ![](img/wf11.png) 
+
+6. **IMPORTANT:** Finally, delete your branch by clicking on *Delete branch*.
+        
+    ![](img/wf12.png) 
+  
