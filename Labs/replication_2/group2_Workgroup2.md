@@ -1,4 +1,4 @@
-# Workgroup 3 - Group #2
+# Workgroup 2 - Group #2
 - Luis
 - Álvaro
 - Diego
