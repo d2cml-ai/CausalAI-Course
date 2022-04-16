@@ -1,9 +1,9 @@
 ## Measuring predictive ability by Sample Splitting
 ---
     Group 3:
-        - Andrea Ulloa 20172597
-        - Angela
-        - Ana Cristina
+        - Andrea Ulloa (20172597)
+        - Ana Angulo (20171627)
+        - Angela Coapaza (20171636)
 ---
 The idea can be summarize in three steps:
 
