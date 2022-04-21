@@ -524,22 +524,22 @@
                     if intercept
                         intercept_value = mean(y .+ mu)
                         
-                        coefs = zeroz(p+1, 1)
-                        coefs = DataFrame([ append!(["Intercept"], colnames), coefs ], :auto)
-                    
+                        coefs = vec(zeros(p+1, 1))
+                        global coefs = DataFrame([ append!(["Intercept"], colnames), coefs ], :auto)
+                        #coefs = DataFrame([ append!(["Intercept"], colnames)], [coefs] , :auto)
                         #coef = 
                     
                     else
                         intercept_value = mean(y)
                         
-                        coefs = zeroz(p, 1)
+                        coefs = vec(zeros(p, 1))
                         
                         coefs = DataFrame([ colnames, coefs ], :auto)
                     end
                     
                     
                     global est = Dict("coefficients"=> coefs,
-                            "beta"=> zeroz(p, 1),
+                            "beta"=> zeros(p, 1),
                             "intercept"=> intercept_value,
                             "index"=> DataFrame([ colnames, zeros(Bool, p) ], :auto),
                             "lambda"=> lmbda,
@@ -567,15 +567,15 @@
                 end 
                 
                 # Refinement variance estimation
-                if self.post
+                if size(x1)[2] != 0 && self.post
                     
                     reg = lm(x1, y)
                     
-                    coefT = coef( lm(x1, y) )
+                    coefT = coef(reg)
                     
                     coefT[isnan.(coefT)] .= 0
                     
-                    global e1 = y - x1*coef( lm(x1, y) )
+                    global e1 = y - x1*coefT
                     
                     coefTemp[ind1] = coefT
                     
@@ -657,8 +657,8 @@
             end
             
             if size(x1)[2] == 0
-                coefTemp = None
-                ind1 = zeros(p, 1)
+                #coefTemp = nothing 
+                ind1 = vec(zeros(p, 1))
             end
             
             global coefTemp = coefTemp
