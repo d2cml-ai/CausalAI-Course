@@ -1,0 +1,5 @@
+digraph Tree {
+node [shape=box, fontsize=32] ;
+edge [fontsize=24] ;
+0 [label="effect = -0.167\np = 0.569\nsamples = 41", style=filled, fillcolor="/reds9/2"] ;
+}

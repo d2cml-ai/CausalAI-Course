@@ -1,0 +1,21 @@
+digraph Tree {
+node [shape=box, fontsize=32] ;
+edge [fontsize=24] ;
+0 [label="effect = -0.308\np = 0.042\nsamples = 165\nphysical comorbidity >= 33.972\n", style=filled, fillcolor="/reds9/3", color=purple, penwidth=10.0] ;
+0 -> 1 [labeldistance=2.5, labelangle=45, headlabel="True", color=green, penwidth=2] ;
+1 [label="effect = -0.234\np = 0.163\nsamples = 143\nmental comorbidity >= 41.556\n", style=filled, fillcolor="/reds9/3"] ;
+1 -> 2[color=green, penwidth=2] ;
+2 [label="effect = -0.165\np = 0.379\nsamples = 116\neducation >= 5.000\n", style=filled, fillcolor="/reds9/2"] ;
+2 -> 3[color=green, penwidth=2] ;
+3 [label="effect = -0.442\np = 0.072\nsamples = 80\nphysical comorbidity >= 43.790\n", style=filled, fillcolor="/reds9/4"] ;
+3 -> 4[color=green, penwidth=2] ;
+4 [label="effect = -0.250\np = 0.386\nsamples = 64", style=filled, fillcolor="/reds9/3"] ;
+3 -> 5[color=red, penwidth=2] ;
+5 [label="effect = -1.000\np = 0.038\nsamples = 16", style=filled, fontcolor=white, fillcolor="/reds9/9", color=purple, penwidth=10.0] ;
+2 -> 6[color=red, penwidth=2] ;
+6 [label="effect = 0.425\np = 0.179\nsamples = 36", style=filled, fillcolor="/blues9/4"] ;
+1 -> 7[color=red, penwidth=2] ;
+7 [label="effect = -0.556\np = 0.147\nsamples = 27", style=filled, fillcolor="/reds9/5"] ;
+0 -> 8 [labeldistance=2.5, labelangle=-45, headlabel="False", color=red, penwidth=2] ;
+8 [label="effect = -0.633\np = 0.084\nsamples = 22", style=filled, fillcolor="/reds9/6"] ;
+}
