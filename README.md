@@ -1,13 +1,13 @@
 # Causal AI Course
 This is a repository for the course CausalAI
 
-The Lectures are on Tuesdays from 8:30 - 11:30 (https://teams.microsoft.com/dl/launcher/launcher.html?url=%2F_%23%2Fl%2Fmeetup-join%2F19%3AC09MmhoQsojvTzgCaQ6rKUXtbzN6pMYkQxPIH68KScE1%40thread.tacv2%2F1710816650613%3Fcontext%3D%257b%2522Tid%2522%253a%25223705cdfe-1991-48fc-9579-b0da85eec9ee%2522%252c%2522Oid%2522%253a%25223b0bc928-ece1-46cb-a9f0-277f0d63eee4%2522%257d%26anon%3Dtrue&type=meetup-join&deeplinkId=5469a100-24c2-4602-be8c-c10a7f030f3b&directDl=true&msLaunch=true&enableMobilePage=true&suppressPrompt=true). \
-The Tutorials are on Friday 08:00 - 10:00.
+The Lectures are on Tuesdays from 8:30 - 11:30 \\
+The Tutorials are on Friday 08:30 - 10:30.
 
 Lecturer: \
 Alexander Quispe Rojas
 
-Teaching Assistant: \
+Teaching Assistant: \\
 
 Three Programming Languages:
 1. R
@@ -38,9 +38,15 @@ Every week students have to write a report about a scientific paper. The student
 
 The students will replicate scripts worked in labs and they will work in groups. 
 
+| Group_1 | Group_2 | Group_3 | Group_4 | Group_5 | Group_6 |
+|---------|---------|---------|---------|---------|---------|
+| MAGUIÑA MEZA, JOSUE EDUARDO | AYALA CORBACHO, Javier frank | DUBE TORRES, Valerie emily | MENGOA LAYME, FRANCO ALAIN | ALVARADO RONCAL, FRANK LUIS | TRUJILLO PALACIOS, NICOLAS MARTIN |
+| HOYOS MACEDO, Valeria nicole | Huarcaya Mitac, Luis Diego | VILLALBA ORTEGA, Matias Gabriel | TRELLES DERTEANO, Alberto corisongo | BEDIA WARTHON, Jeffry SEBASTIAN CIPRIANI | ROMERO PEREZ, ANDREA NICOLE |
+| Yllu Socualaya, Alvaro Alexander | MAMANI PALOMINO, Janice de Jesus | GUERRERO CUEVA, JUAN MARCOS | ACOSTA CORTEZ, Fernando Javier | Olarte Guevara, Angie SUSSANA | ARIZOLA BLUA, Francisco alonso |
+| CUBAS ALBUJAR, Maria pamela | TOVAR ZAMUDIO, Natalie nicole | GARAY PONTE, Erzo francesco | HORNA MUÑOZ, Gerardo alejandro | MARTEL CERCEDO, Veronika Fernanda | Ruiz Scharff, Mario Aaron |
 
 
-<> (
+<!-- 
 ## Second Cohort, 2022-1
 Group_1 | Group_2 | Group_3 | Group_4
 --------|---------|---------|--------
@@ -60,13 +66,10 @@ RIEGA ESCALANTE, STEPHY ROSARIO | GOMEZ PECHE, DIEGO ALONSO | BAZAN BURGOS, MANU
 SOTO ENRIQUEZ, JESUS ALEJANDRO | PACHECO LLACUA, ALEXANDER RAUL | SALINAS RODRIGUEZ, SEBASTIAN DIEGO | OLIVERA QUEVEDO, KATIUSKA
 CACERES VASQUEZ, FRANCO ALEXIS | . | DE LA PEÑA BRITO, DANIEL ISRAEL | USCAMAYTA QUISPE, JOSE HEBERT
 
-
-
-
 Group_5 | Group_6 | Group_7 | Group_8
 --------|---------|---------|--------
 LINARES CAMUS, ELIZABETH NICOLE | EUSEBIO EVANGELISTA, ELJAER EDFRANCE | GENG SOLIS, MELANI ELENA | MARTINEZ GUTIERREZ, SANDRA MIRELI
 ASTO MERCADO, SONIA ROSMERY | SANDOVAL ESTELA, LUIS RODRIGO | SILUPU PEÑARANDA, COLLIN RODRIGO LUISIN | MORALES LOPEZ, ERIK BRANDON
 HUANCAYO SOLARI, ALESSANDRA GIULIANA | TAPIA MILLONES, MARCIO ANDRE | DELGADO DIAZ, DIEGO GONZALO | CLAVO CAMPOS, ANDREA BRIZETH
 CARRILLO CLAVO, DANIEL ENRIQUE |VIVAS ALEJANDRO, CLAUDIA MIRELA  | QUIROZ RIOS, GONZALO | SORIA ALOSILLA, GIANFRANCO
-)
+ -->
