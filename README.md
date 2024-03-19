@@ -1,17 +1,13 @@
-# ECO224-Causal Inference and Machine Learning
-This is a repository for the course ECO224 Causal Inference and Machine Learning at PUCP. 
+# Causal AI Course
+This is a repository for the course CausalAI
 
-The Lectures are on Thuersday 19:00 - 21:00 (https://pucp.zoom.us/j/2115360284). \
+The Lectures are on Tuesdays from 8:30 - 11:30 (https://teams.microsoft.com/dl/launcher/launcher.html?url=%2F_%23%2Fl%2Fmeetup-join%2F19%3AC09MmhoQsojvTzgCaQ6rKUXtbzN6pMYkQxPIH68KScE1%40thread.tacv2%2F1710816650613%3Fcontext%3D%257b%2522Tid%2522%253a%25223705cdfe-1991-48fc-9579-b0da85eec9ee%2522%252c%2522Oid%2522%253a%25223b0bc928-ece1-46cb-a9f0-277f0d63eee4%2522%257d%26anon%3Dtrue&type=meetup-join&deeplinkId=5469a100-24c2-4602-be8c-c10a7f030f3b&directDl=true&msLaunch=true&enableMobilePage=true&suppressPrompt=true). \
 The Tutorials are on Friday 08:00 - 10:00.
 
 Lecturer: \
 Alexander Quispe Rojas
 
 Teaching Assistant: \
-Roberto Mendoza Matos
-Sandra Martínez Gutiérrez\
-Jesús Soto Enríquez
-
 
 Three Programming Languages:
 1. R
@@ -44,7 +40,7 @@ The students will replicate scripts worked in labs and they will work in groups.
 
 
 
-
+<> (
 ## Second Cohort, 2022-1
 Group_1 | Group_2 | Group_3 | Group_4
 --------|---------|---------|--------
@@ -73,3 +69,4 @@ LINARES CAMUS, ELIZABETH NICOLE | EUSEBIO EVANGELISTA, ELJAER EDFRANCE | GENG SO
 ASTO MERCADO, SONIA ROSMERY | SANDOVAL ESTELA, LUIS RODRIGO | SILUPU PEÑARANDA, COLLIN RODRIGO LUISIN | MORALES LOPEZ, ERIK BRANDON
 HUANCAYO SOLARI, ALESSANDRA GIULIANA | TAPIA MILLONES, MARCIO ANDRE | DELGADO DIAZ, DIEGO GONZALO | CLAVO CAMPOS, ANDREA BRIZETH
 CARRILLO CLAVO, DANIEL ENRIQUE |VIVAS ALEJANDRO, CLAUDIA MIRELA  | QUIROZ RIOS, GONZALO | SORIA ALOSILLA, GIANFRANCO
+)
