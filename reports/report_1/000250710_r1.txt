@@ -1,0 +1,13 @@
+⮚ What is the research question of the article?
+This article answer the question about the contributions from ML literature to the traditional econometrics and statistics, and to what extent these 
+will allow to do more sophisticated empirical work and effective communication.
+
+⮚ What are the strengths and weaknesses of the document's approach to answering that question?
+The article's strenghts are 4:the wide coverage of the differences between traditional econometrics and ML literature, detailed explanation of ML's relevance 
+for economists, gives descriptions of several ML tools that economists would benefit from, and criticizes the slow adoption of ML methods. However there are certain 
+weaknesses, such as
+
+⮚ How does this paper advance knowledge about the question, i.e., what is the contribution?
+(If you can't find any contributions, ask yourself why the editor and referees decided
+publish the article).
+⮚ What would be one or two valuable and specific next steps to advance this question?
