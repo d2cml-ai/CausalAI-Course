@@ -1,13 +1,18 @@
 ⮚ What is the research question of the article?
-This article answer the question about the contributions from ML literature to the traditional econometrics and statistics, and to what extent these 
-will allow to do more sophisticated empirical work and effective communication.
+This article addresses the question of the contributions from ML literature to traditional econometrics and statistics, and to what extent these will allow for 
+more sophisticated empirical work and effective communication.
 
 ⮚ What are the strengths and weaknesses of the document's approach to answering that question?
-The article's strenghts are 4:the wide coverage of the differences between traditional econometrics and ML literature, detailed explanation of ML's relevance 
-for economists, gives descriptions of several ML tools that economists would benefit from, and criticizes the slow adoption of ML methods. However there are certain 
-weaknesses, such as
+The article's strengths lie in several areas: it provides a wide coverage of the differences between traditional econometrics and ML literature, offers
+ a detailed explanation of ML's relevance for economists, gives descriptions of several ML tools that economists would benefit from, and criticizes the 
+slow adoption of ML methods. However, a notable weakness is the absence of practical examples that would illustrate some of the benefits mentioned earlier in the text.
 
 ⮚ How does this paper advance knowledge about the question, i.e., what is the contribution?
-(If you can't find any contributions, ask yourself why the editor and referees decided
-publish the article).
+Overall, the paper's contribution lies in providing an extensive overview of ML methods and their potential impact on empirical research in economics. 
+These contributions are related to the disclosure of methods addressing the same problems typically tackled by traditional methods. It is highlighted 
+that despite these ML methods do not incorporate economic theory as their basis, these would give some valuable information to improve analysis.
+
 ⮚ What would be one or two valuable and specific next steps to advance this question?
+One valuable next step would be to further explore the adaptation and integration of economic theory into ML methods. This could involve developing hybrid 
+models that combine the strengths of economic theory with the predictive power of ML methods, ultimately enhancing the applicability and robustness of these 
+techniques in addressing economic questions. 
