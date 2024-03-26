@@ -1,0 +1,29 @@
+- What is the research question of the article?
+
+The article aims to explore the disparities in objectives and considerations between traditional econometrics and machine learning literature, 
+and how these variances influence the selection of particular methods.
+
+- What are the strengths and weaknesses of the document's approach to answering that question?
+
+Strengths: The document effectively compares the goals and concerns of traditional econometrics and machine learning literature, 
+offering valuable insights for researchers. It also sheds light on how these distinctions affect method selection, 
+enhancing comprehension in the field.
+
+Weaknesses: The document lacks empirical evidence or case studies to support claims about differences between traditional econometrics
+ and machine learning literature. Integrating real-world examples could bolster the argument and provide practical insights for readers.
+
+- How does this paper advance knowledge about the question, i.e., what is the contribution?
+
+This paper reviews and compares the objectives, methods, and contexts of traditional econometrics and machine learning literature in economics. 
+It introduces specific machine learning methods crucial for empirical economists (as supervised learning and matrix completion) and discusses
+challenges in their application. By emphasizing the necessity for economists to incorporate machine learning methods, 
+it helps bridge the gap between traditional and modern approaches in economics. Additionally, the paper introduces new terminology and concepts
+that can be usefull if you are interested in improving predictive performance.
+
+-What would be one or two valuable and specific next steps to advance this question?
+
+One valuable step would be to conduct empirical studies directly comparing the performance of methods from both approaches on real economic data.
+This would offer concrete evidence of their differences in predictive power and accuracy.
+Another valuable step could involve developing guidelines for economists on integrating machine learning methods into their work, 
+considering the field's specific goals and concerns. This would offer recommendations on when and how to use these techniques alongside
+traditional methods for different types of economic research questions.
