@@ -1,0 +1,20 @@
+⮚ What is the research question of the article?
+The article aims to develop a reliable price prediction model for rental properties on Airbnb to aid both property owners and customers. 
+The model will utilize minimal available features as inputs.
+
+⮚ What are the strengths and weaknesses of the document's approach to answering that question?
+The strengths lie in three main aspects: the incorporation of new information as input for this type of model (compared to existing literature), customer 
+reviews analyzed through sentiment analysis, a variety of feature selection techniques, and comparison of different models to determine the most effective 
+approach. However, despite introducing innovation to the literature, it was not fully exploited, lacking explanation on its relevance and why its integration 
+distinguishes the paper from others (it could be the case that this feature does not provide predictive power). Therefore, the complete achievement of 
+the goal to assist customers is not reached.
+
+⮚ How does this paper advance knowledge about the question, i.e., what is the contribution?
+(If you can't find any contributions, ask yourself why the editor and referees decided
+publish the article).
+The contribution includes exploring various feature selection techniques to reduce model variance and improve efficiency. Additionally, sentiment analysis incorporates 
+customer opinions, addressing information asymmetry issues and evidently impacting property prices. Overall, a holistic approach to the problem is achieved by 
+incorporating property information and customer feedback.
+
+⮚ What would be one or two valuable and specific next steps to advance this question?
+The next step involves conducting a deeper analysis of sentiment analysis techniques and their impact on price prediction accuracy.
