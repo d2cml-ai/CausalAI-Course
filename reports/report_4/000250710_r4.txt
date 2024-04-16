@@ -1,0 +1,20 @@
+The surge of online businesses in the late 1990s opened a new frontier for data-driven decision making through online controlled experiments (OCEs), 
+with A/B testing being a prominent tool. The paper "Statistical Challenges in Online Controlled Experiments" delves into the complexities of conducting 
+these experiments, offering a comprehensive review of the statistical methodologies and challenges unique to this domain.
+
+The paper's strength lies in its thorough analysis of inherent statistical issues. It dissects challenges like estimating treatment effects, managing 
+user heterogeneity, and considering long-term effects in online environments. This detailed examination provides valuable insights into the nuances of
+ A/B testing, making the concepts accessible to a broad audience through the inclusion of illustrative examples.
+
+However, one area for consideration is the ethical dimension surrounding informed consent. Unlike traditional research settings, online experiments can 
+sometimes lack transparency regarding user participation. Individuals may not explicitly agree to be part of a study, or the information provided about 
+the experiment might be ambiguous. This raises concerns about user awareness and potential manipulation.
+
+The paper's contribution to the field is undeniable. By consolidating existing methodologies and challenges, it sheds light on the intricate nature of A/B
+ testing in the online realm. Moreover, it identifies open research areas and gaps in the current literature, paving the way for future explorations and the 
+development of novel statistical approaches specifically tailored to OCEs.
+
+Moving forward, valuable next steps would be the development of practical guidelines or frameworks to assist researchers and practitioners in tackling the 
+statistical challenges highlighted in the paper. Additionally, overcoming limitations like low power and restrictive methods will be crucial for advancing 
+the field and ensuring the robustness of experimental findings in online controlled experiments. It's also important to address the ethical considerations 
+surrounding user awareness and informed consent to ensure responsible and transparent practices in online experimentation.
