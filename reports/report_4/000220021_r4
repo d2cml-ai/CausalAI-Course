@@ -1,22 +1,4 @@
-The article aims to study the statistical challenges that arise in online controlled experiments
-(OCEs) and discussing the need for new statistical methodologies to address these challenges.
-Indeed, this have a very useful applications in order to maximize the revenue of these e-
-industries, such as Booking, Microsoft, etc. As the text says an estimated 5.16 billion people
-were using the internet. This extensive use has created significant opportunities for online
-businesses to optimize their products and services through data-driven decision-making.
-This paper is intensive in theorical aspects, mainly in the statistical topic, but also the digital
-experimentation for understanding the complexities of OCE by thoroughly reviewing current
-methodologies and highlighting areas where new approaches are needed. It delves into these
-methodologies by describing how experimental units are managed and how responses are
-evaluated to assess the effectiveness of changes implemented within the platform. However,
-the absence of case studies or real experiment results that validate theoretical claims may
-leave some recommendations untested, which could hinder their adoption in practical
-settings. It does not sufficiently address the potential barriers to implementing these
-sophisticated techniques, given that the main practical use is to be profitable.
-Of course, the paper introduces concepts that are not widely implemented in the typical OCE
-setups. These methodologies offer more refined approaches to analyzing data from OCEs,
-potentially leading to more accurate and reliable results. Also, the article emphasizes the need
-for developing new statistical methodologies to address unsolved problems in OCEs. Finally, I
-think the next steps will come with the next steps of the AI, in the sense that the predictions
-would’ve solve some problems mentioned in the text, such as experiment duration, sample
-problems or just to identify better consumer patterns.
+The article aims to study the statistical challenges that arise in online controlled experiments (OCEs) and discussing the need for new statistical methodologies to address these challenges. Indeed, this have a very useful applications in order to maximize the revenue of these e-industries, such as Booking, Microsoft, etc. As the text says an estimated 5.16 billion people were using the internet. This extensive use has created significant opportunities for online businesses to optimize their products and services through data-driven decision-making.
+This paper is intensive in theorical aspects, mainly in the statistical topic, but also the digital experimentation for understanding the complexities of OCE by thoroughly reviewing current methodologies and highlighting areas where new approaches are needed. It delves into these methodologies by describing how experimental units are managed and how responses are evaluated to assess the effectiveness of changes implemented within the platform. However, the absence of case studies or real experiment results that validate theoretical claims may leave some recommendations untested, which could hinder their adoption in practical settings. It does not sufficiently address the potential barriers to implementing these sophisticated techniques, given that the main practical use is to be profitable. 
+Of course, the paper introduces concepts that are not widely implemented in the typical OCE setups. These methodologies offer more refined approaches to analyzing data from OCEs, potentially leading to more accurate and reliable results. Also, the article emphasizes the need for developing new statistical methodologies to address unsolved problems in OCEs. Finally, I think the next steps will come with the next steps of the AI, in the sense that the predictions would’ve solve some problems mentioned in the text, such as experiment duration, sample problems or just to identify better consumer patterns. 
+ 
