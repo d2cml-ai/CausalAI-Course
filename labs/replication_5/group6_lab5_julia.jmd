@@ -1,0 +1,199 @@
+using Pkg
+Pkg.add(["CSV", "DataFrames", "Plots", "StatsPlots", "GLM", "Distributions", "Random", "ScikitLearn", "Econometrics", "StatsBase", "StatsModels"])
+
+
+# Load the necessary packages
+using CSV
+using DataFrames
+using Plots
+using StatsPlots
+using GLM
+using Distributions
+using Random
+using ScikitLearn
+using ScikitLearn.CrossValidation: train_test_split
+using ScikitLearn.LinearModel: LassoCV
+using Econometrics: RegressionForest, CausalForestDML, BootstrapInference
+using StatsBase
+using StatsModels
+
+# Load the data
+data = CSV.read("processed_esti.csv", DataFrame)
+
+# Display first few rows
+first(data, 5)
+
+# Define the variables to include in the table
+variables = [
+    "y", "w", "gender_female", "gender_male", "gender_transgender", 
+    "ethnicgrp_asian", "ethnicgrp_black", "ethnicgrp_mixed_multiple", 
+    "ethnicgrp_other", "ethnicgrp_white", "partners1", "postlaunch", 
+    "age", "imd_decile"
+]
+
+# Split the data into control and treatment groups
+control_group = data[data.w .== 0, :]
+treatment_group = data[data.w .== 1, :]
+
+# Function to calculate mean, std, and diff
+function calculate_stats(variable, control_group, treatment_group, data)
+    control_mean = mean(control_group[:, variable])
+    control_std = std(control_group[:, variable])
+    treatment_mean = mean(treatment_group[:, variable])
+    treatment_std = std(treatment_group[:, variable])
+    model = lm(@formula($(variable) ~ w), data)
+    diff = coef(model)[2]
+    return control_mean, control_std, treatment_mean, treatment_std, diff
+end
+
+# Create the balance table
+balance_table = DataFrame(
+    "Variable" => String[], 
+    "Control mean" => Float64[], 
+    "Control sd" => Float64[], 
+    "Treatment mean" => Float64[], 
+    "Treatment sd" => Float64[], 
+    "Diff" => Float64[]
+)
+
+for var in variables
+    control_mean, control_std, treatment_mean, treatment_std, diff = calculate_stats(var, control_group, treatment_group, data)
+    push!(balance_table, (var, control_mean, control_std, treatment_mean, treatment_std, diff))
+end
+
+# Display the balance table
+display(balance_table)
+
+# Proportion of STI Testing (Outcome y) in Treated and Control Groups
+@df data bar(:w, :y, title = "Proportion of STI Testing (Outcome y) in Treated and Control Groups", xlabel = "Group (0 = Control, 1 = Treated)", ylabel = "Proportion of STI Testing", legend = false)
+
+# Gender Distribution in Treated and Control Groups
+@df data bar(:w, group = :gender_female, title = "Gender Distribution in Treated and Control Groups", xlabel = "Group (0 = Control, 1 = Treated)", ylabel = "Count", legend = :upperright)
+
+# Define a function to plot histograms for each group separately
+function plot_separate_histograms(variable, treated, control)
+    p1 = @df treated histogram(variable, bins = 20, title = "Treated Group - Distribution of $variable", alpha = 0.6)
+    p2 = @df control histogram(variable, bins = 20, title = "Control Group - Distribution of $variable", alpha = 0.6)
+    plot(p1, p2, layout = (1, 2), size = (1400, 600))
+end
+
+# Numeric variables: "age", "imd_decile"
+plot_separate_histograms(:age, treatment_group, control_group)
+plot_separate_histograms(:imd_decile, treatment_group, control_group)
+
+# Define a function to plot pie charts for ethnic group composition with labels
+function plot_ethnic_group_piecharts(treated, control)
+    treated_ethnic_counts = [sum(treated[:, symbol("ethnicgrp_$label")]) for label in ["asian", "black", "mixed_multiple", "other", "white"]]
+    control_ethnic_counts = [sum(control[:, symbol("ethnicgrp_$label")]) for label in ["asian", "black", "mixed_multiple", "other", "white"]]
+    labels = ["Asian", "Black", "Mixed/Multiple", "Other", "White"]
+    
+    p1 = pie(treated_ethnic_counts, labels = labels, title = "Treated Group - Ethnic Composition", startangle = 90)
+    p2 = pie(control_ethnic_counts, labels = labels, title = "Control Group - Ethnic Composition", startangle = 90)
+    plot(p1, p2, layout = (1, 2), size = (1400, 700))
+end
+
+# Plot pie charts for ethnic group composition
+plot_ethnic_group_piecharts(treatment_group, control_group)
+
+# Linear regression analysis
+
+# Define the dependent variable and the treatment variable
+Y = data.y
+T = data.w
+
+# Model 1: Y ~ T
+model1 = lm(@formula(y ~ w), data)
+println(coeftable(model1))
+
+# Model 2: Y ~ T + X (where X are selected covariates, e.g., "age" and "gender_female")
+model2 = lm(@formula(y ~ w + age + gender_female), data)
+println(coeftable(model2))
+
+# Double Lasso Method
+# Prepare data for Lasso regression
+features = select(data, Not(:y))
+target = data.y
+
+# Perform LassoCV to select important features
+@sk_import linear_model: LassoCV
+lasso = LassoCV(cv = 5).fit(Matrix(features), target)
+
+# Select features based on LassoCV
+selected_features = names(features)[lasso.coef_ .!= 0]
+
+# Ensure that the treatment variable "w" is included in the selected features
+if "w" ∉ selected_features
+    selected_features = ["w"; selected_features]
+end
+
+# Model 3: Y ~ T + selected features from Lasso
+model3 = lm(@formula($(Symbol("y")) ~ $(selected_features...)), data)
+println(coeftable(model3))
+
+# Extract coefficients and confidence intervals for T from each model
+coeffs = Dict(
+    "Model 1" => coef(model1)[2],
+    "Model 2" => coef(model2)[2],
+    "Model 3" => coef(model3)[2]
+)
+
+conf_intervals = Dict(
+    "Model 1" => confint(model1)[2, :],
+    "Model 2" => confint(model2)[2, :],
+    "Model 3" => confint(model3)[2, :]
+)
+
+# Plot the coefficients with confidence intervals
+models = collect(keys(coeffs))
+estimates = collect(values(coeffs))
+ci_lower = [conf_intervals[model][1] for model in models]
+ci_upper = [conf_intervals[model][2] for model in models]
+
+plot(models, estimates, yerr = (estimates .- ci_lower, ci_upper .- estimates), seriestype = :scatter, 
+     xlabel = "Model", ylabel = "Coefficient for T", title = "Comparison of Coefficients for T with Confidence Intervals", grid = true)
+hline!([0], linestyle = :dash, color = :grey)
+
+# Non-Linear Methods DML
+
+# Function to run DML
+function dml_lasso(X_train, X_test, Y_train, Y_test, T_train, T_test)
+    # Step 1: Learn Y and T using Lasso
+    lasso_y = LassoCV(cv = 5).fit(X_train, Y_train)
+    lasso_t = LassoCV(cv = 5).fit(X_train, T_train)
+    
+    # Step 2: Get residuals
+    Y_residuals = Y_test .- predict(lasso_y, X_test)
+    T_residuals = T_test .- predict(lasso_t, X_test)
+    
+    # Step 3: Run OLS on residuals
+    ols_model = lm(@formula(Y_residuals ~ T_residuals))
+    return ols_model
+end
+
+# Split the data into training and testing sets
+X_train, X_test, Y_train, Y_test, T_train, T_test = train_test_split(Matrix(select(data, Not([:y, :w]))), Y, T, test_size = 0.2, random_state = 42)
+
+# Run DML with Lasso
+lasso_model = dml_lasso(X_train, X_test, Y_train, Y_test, T_train, T_test)
+println("Lasso DML Results")
+println(coeftable(lasso_model))
+
+# Define a function to run DML with Decision Trees
+function dml_tree(X_train, X_test, Y_train, Y_test, T_train, T_test)
+    # Step 1: Learn Y and T using Decision Trees
+    tree_y = DecisionTreeRegressor().fit(X_train, Y_train)
+    tree_t = DecisionTreeRegressor().fit(X_train, T_train)
+    
+    # Step 2: Get residuals
+    Y_residuals = Y_test .- predict(tree_y, X_test)
+    T_residuals = T_test .- predict(tree_t, X_test)
+    
+    # Step 3: Run OLS on residuals
+    ols_model = lm(@formula(Y_residuals ~ T_residuals))
+    return ols_model
+end
+
+# Run DML with Decision Trees
+tree_model = dml_tree(X_train, X_test, Y_train, Y_test, T_train, T_test)
+println("Decision Tree DML Results")
+println(coeftable(tree_model))
