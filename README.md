@@ -73,3 +73,15 @@ ASTO MERCADO, SONIA ROSMERY | SANDOVAL ESTELA, LUIS RODRIGO | SILUPU PEÑARANDA,
 HUANCAYO SOLARI, ALESSANDRA GIULIANA | TAPIA MILLONES, MARCIO ANDRE | DELGADO DIAZ, DIEGO GONZALO | CLAVO CAMPOS, ANDREA BRIZETH
 CARRILLO CLAVO, DANIEL ENRIQUE |VIVAS ALEJANDRO, CLAUDIA MIRELA  | QUIROZ RIOS, GONZALO | SORIA ALOSILLA, GIANFRANCO
  -->
+
+ ## X. Website
+
+Video tutorials
+
+1. https://www.youtube.com/watch?v=zyGfECfJ9BY
+2. https://www.youtube.com/watch?v=K5xImVmm2Ds
+
+Templates
+
+1. https://bootstrapmade.com/bootstrap-portfolio-templates/
+2. https://cssauthor.com/free-bootstrap-portfolio-templates/
