@@ -1,0 +1,229 @@
+
+## Ortogonal Learning
+
+
+```{r}
+library(hdm)
+library(ggplot2)
+library(dplyr)
+library(purrr)
+
+simulate <- function(n = 1000, p = 100) {
+  beta <- (1 / (1:p)^2)
+  gamma <- (1 / (1:p)^2)
+  
+  X <- matrix(rnorm(n * p), n, p)
+  D <- X %*% gamma + rnorm(n) / 4
+  Y <- 10 * D + X %*% beta + rnorm(n)
+  
+  r_lasso_estimation <- rlasso(x = cbind(D, X), y = Y, post = TRUE)
+  
+  SX_IDs <- which(coef(r_lasso_estimation)[-1] != 0)
+  
+  if (length(SX_IDs) == 0) {
+    Naive <- coef(lm(Y ~ D))[2]
+  } else {
+    X_D <- cbind(D, X[, SX_IDs])
+    Naive <- coef(lm(Y ~ X_D))[2]
+  }
+  
+  resY <- rlasso(x = X, y = Y, post = FALSE)$residuals
+  resD <- rlasso(x = X, y = D, post = FALSE)$residuals
+  Ortho <- coef(lm(resY ~ resD))[2]
+  
+  return(c(Naive = Naive, Ortho = Ortho))
+}
+
+simulate_and_plot <- function(B1) {
+  set.seed(0)
+  results <- replicate(B1, simulate())
+  
+  Naive <- results[1,] - 10
+  Orthogonal <- results[2,] - 10
+  
+  Orto_breaks <- seq(-1.2, 2, by = 0.2)
+  Naive_breaks <- seq(-0.6, 1.2, by = 0.2)
+  
+  df <- data.frame(
+    Orthogonal = Orthogonal,
+    Naive = Naive
+  )
+  
+  p1 <- ggplot(df, aes(x = Orthogonal)) +
+    geom_histogram(aes(y = ..density..), breaks = Orto_breaks, fill = "blue") +
+    xlim(-2, 2) +
+    ggtitle(paste("Orthogonal,", B1, "trials")) +
+    xlab("Orthogonal")
+  
+  p2 <- ggplot(df, aes(x = Naive)) +
+    geom_histogram(aes(y = ..density..), breaks = Naive_breaks, fill = "red") +
+    xlim(-2, 2) +
+    ggtitle(paste("Naive", B1, "trials")) +
+    xlab("Naive")
+  
+  gridExtra::grid.arrange(p1, p2, ncol = 2)
+}
+
+simulate_and_plot(10)
+
+```
+
+
+```{r}
+
+simulate_and_plot(100)
+simulate_and_plot(1000)
+simulate_and_plot(10000)
+```
+
+
+```{r}
+library(pracma)
+tic()
+for(i in 1:10){
+    simulate()
+}
+toc()
+```
+
+```{r}
+library(pracma)
+library(furrr)
+plan(multicore)
+tic()
+results = future_map(1:2, ~simulate(), .options = furrr_options(seed = TRUE))
+toc()
+```
+
+
+
+
+## Doble Lasso
+
+```{r}
+library(tidyverse)
+library(glmnet)
+library(caret)
+
+# Cargar datos
+data <- read.csv("https://raw.githubusercontent.com/gsbDBI/ExperimentData/97a11199ba559f01c7b3803a1493ffa08631732e/School/bruhn2016.csv")
+data <- na.omit(data)
+
+
+names(data) <- gsub("\\.", "_", names(data))
+
+
+out_come <- "outcome_test_score"
+d <- "treatment"
+xall <- setdiff(names(data), c(out_come, d))
+
+
+set.seed(12)
+x_selected <- sample(xall, 3)
+print(x_selected)
+
+
+X <- data[c(x_selected, d)]
+X <- model.matrix(~ ., data = X)
+```
+
+### OLS
+
+```{r}
+ols_table <- function(y, X, method = 'ols') {
+  model <- lm(y ~ X - 1)
+  result <- confint(model)
+  result <- cbind(result, coef = coef(model))
+  result <- as.data.frame(result)
+  colnames(result) <- c('l', 'u', 'coef')
+  result$method <- method
+  return(result)
+}
+
+ols <- ols_table(data[[out_come]], X)
+print(ols)
+```
+
+
+### Doble Lasso
+
+```{r}
+residual_lasso <- function(X, y, cv_n = 10) {
+  cv_model <- cv.glmnet(as.matrix(X), y, alpha = 1, nfolds = cv_n)
+  predictions <- predict(cv_model, newx = as.matrix(X), s = "lambda.min")
+  residual <- y - predictions
+  return(residual)
+}
+
+# Preparar datos
+X1 <- data[x_selected]
+y <- data[[out_come]]
+d <- data[[d]]
+
+# Calcular residuales usando Lasso CV
+lasso_cv_r_y <- residual_lasso(X1, y)
+lasso_cv_r_D <- residual_lasso(X1, d)
+d_lasso_result <- ols_table(lasso_cv_r_y, as.matrix(lasso_cv_r_D), method = 'Doble Lasso')
+print(d_lasso_result)
+```
+
+
+
+### Doble Lasso - theorical lambda
+
+```{r}
+t_residual_lasso <- function(X, y, theorical_lambda = 0.5) {
+  model <- glmnet(as.matrix(X), y, alpha = 1, lambda = theorical_lambda)
+  predictions <- predict(model, newx = as.matrix(X), s = theorical_lambda)
+  residual <- y - predictions
+  return(residual)
+}
+
+# Calcular residuales usando Lasso con lambda teórico
+t_lass_r_y <- t_residual_lasso(X1, y)
+t_lass_r_d <- t_residual_lasso(X1, d)
+t_lass_result <- ols_table(t_lass_r_y, as.matrix(t_lass_r_d), method = "Doble Lasso - Theorical lambda")
+print(t_lass_result)
+
+```
+
+### Doble Lasso - method partilling out
+
+
+```{r}
+d_lasso <- rlassoEffect(x = as.matrix(X1), y = y, d = d, method = "partialling out")
+
+d_lasso <- rlassoEffect(x = as.matrix(X1), y = y, d = d, method = "partialling out")
+
+# Extraer coeficiente, error estándar y calcular intervalos de confianza
+coef <- d_lasso$alpha
+se <- d_lasso$se
+l <- coef - 1.96 * se
+u <- coef + 1.96 * se
+
+# Crear un data frame con los resultados
+d_lass_m <- tibble(
+  coef = coef,
+  l = l,
+  u = u,
+  method = "Lasso - Partialling out",
+  row.names = "treatment"
+)
+d_lass_m
+```
+
+### Coef Plot
+
+```{r}
+all_results = bind_rows(ols, d_lasso_result, t_lass_result, d_lass_m) |>
+    tail(4)
+all_results
+```
+
+```{r}
+ggplot(all_results, aes(x = method, y = coef, color = method)) +
+  geom_point(position = position_dodge(width = 0.5)) +
+  geom_errorbar(aes(ymin = l, ymax = u), width = 0.2, position = position_dodge(width = 0.5)) +
+  theme_minimal() +
+  labs(title = "", x = "Method", y = "Coef.")
+```
