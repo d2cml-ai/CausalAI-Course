@@ -1,0 +1,309 @@
+Aquí tienes el equivalente del código en R para cada sección que mencionaste:
+
+### Data
+
+```{r}
+pen <- "https://raw.githubusercontent.com/alexanderquispe/CausalAI-Course/main/data/penn_jae.csv"
+data <- read.csv(pen)
+colnames(data)
+```
+
+### Filter
+
+```{r}
+library(dplyr)
+
+data <- data %>% filter(tg %in% c(0, 4))
+data$T4 <- ifelse(data$tg == 4, 1, 0)
+data$log_inuidur1 <- log(data$inuidur1)
+```
+
+### Model
+
+```{r}
+library(broom)
+
+model_ols <- function(data, formula = 'log_inuidur1 ~ T4 + female + black + othrace + dep + q2 + q3 + q4 + q5 + q6 + agelt35 + agegt54 + durable + lusd + husd') {
+  md <- lm(formula, data = data)
+  return(md)
+}
+
+md0 <- model_ols(data)
+summary(md0)
+```
+
+### Bootstrap
+
+```{r}
+n_bootstrap <- 1000
+coef_tg <- numeric(n_bootstrap)
+coef_female <- numeric(n_bootstrap)
+coef_black <- numeric(n_bootstrap)
+
+n <- nrow(data)
+
+for (i in 1:n_bootstrap) {
+  sample_data <- data[sample(1:n, n, replace = TRUE), ]
+  model_i <- model_ols(sample_data)
+  coef_tg[i] <- coef(model_i)['T4']
+  coef_female[i] <- coef(model_i)['female']
+  coef_black[i] <- coef(model_i)['black']
+}
+
+se_tg <- sd(coef_tg)
+se_female <- sd(coef_female)
+se_black <- sd(coef_black)
+mean_tg <- mean(coef_tg)
+mean_female <- mean(coef_female)
+mean_black <- mean(coef_black)
+```
+
+### Plots
+
+```{r}
+hist(coef_tg, main = "tg", xlab = "Coeficientes", col = "blue")
+hist(coef_female, main = "female", xlab = "Coeficientes", col = "green")
+hist(coef_black, main = "black", xlab = "Coeficientes", col = "red")
+```
+
+### Results
+
+```{r}
+results <- data.frame(
+  Variable = c('T4 (TG)', 'female', 'black'),
+  Mean_Coef = c(mean_tg, mean_female, mean_black),
+  Bootstrap_SE = c(se_tg, se_female, se_black)
+)
+print(results)
+```
+
+# GRF
+
+## Setup
+
+```{r}
+
+library(grf)
+library(sandwich)
+library(lmtest)
+library(Hmisc)
+library(ggplot2)
+
+data = read.csv("https://raw.githubusercontent.com/alexanderquispe/CausalAI-Course/main/data/penn_jae.csv")
+data$schoolid = factor(data$schoolid)
+
+DF = data[,-1]
+school.id = as.numeric(data$schoolid)
+
+school.mat = model.matrix(~ schoolid + 0, data = data)
+school.size = colSums(school.mat)
+
+
+w.lm = glm(Z ~ ., data = data[,-3], family = binomial)
+summary(w.lm)
+
+W = DF
+Y
+X.raw = DF[,-(1:2)]
+
+C1.exp = model.matrix(~ factor(X.raw$C1) + 0)
+XC.exp = model.matrix(~ factor(X.raw$XC) + 0)
+
+X = cbind(X.raw[,-which(names(X.raw) %in% c("C1", "XC"))], C1.exp, XC.exp)
+```
+
+## Model Training
+
+```{r}
+Y.forest = regression_forest(X, Y, clusters = school.id, equalize.cluster.weights = TRUE)
+Y.hat = predict(Y.forest)$predictions
+W.forest = regression_forest(X, W, clusters = school.id, equalize.cluster.weights = TRUE)
+W.hat = predict(W.forest)$predictions
+
+cf.raw = causal_forest(X, Y, W,
+                       Y.hat = Y.hat, W.hat = W.hat,
+                       clusters = school.id,
+                       equalize.cluster.weights = TRUE)
+varimp = variable_importance(cf.raw)
+selected.idx = which(varimp > mean(varimp))
+
+cf = causal_forest(X[,selected.idx], Y, W,
+                   Y.hat = Y.hat, W.hat = W.hat,
+                   clusters = school.id,
+                   equalize.cluster.weights = TRUE,
+                   tune.parameters = "all")
+tau.hat = predict(cf)$predictions
+print(colnames(X)[selected.idx])
+
+ATE = average_treatment_effect(cf)
+paste("95% CI for the ATE:", round(ATE[1], 3),
+      "+/-", round(qnorm(0.975) * ATE[2], 3))
+
+```
+
+## Formal Tests
+
+```{r}
+test_calibration(cf)
+
+high_effect = tau.hat > median(tau.hat)
+ate.high = average_treatment_effect(cf, subset = high_effect)
+ate.low = average_treatment_effect(cf, subset = !high_effect)
+paste("95% CI for difference in ATE:",
+      round(ate.high[1] - ate.low[1], 3), "+/-",
+      round(qnorm(0.975) * sqrt(ate.high[2]^2 + ate.low[2]^2), 3))
+
+
+
+dr.score = tau.hat + W / cf$Y.hat - (1 - cf$W.hat) * tau.hat -
+  (1 - W) / (1 - cf$Y.hat + cf$X1 / school.size)
+high.X1 = school.X1 > median(school.X1)
+t.test(school.score[high.X1], school.score[!high.X1])
+
+school.X2 = (t(school.mat) %*% X$X2) / school.size
+high.X2 = school.X2 > median(school.X2)
+t.test(school.score[high.X2], school.score[!high.X2])
+
+school.X2.levels = cut(school.X2,
+                       breaks = c(-Inf, quantile(school.X2, c(1/3, 2/3)), Inf))
+summary(aov(school.score ~ school.X2.levels))
+
+
+```
+
+```{r}
+dr.score = tau.hat + W / cf$W.hat *
+  (Y - cf$Y.hat - (1 - cf$W.hat) * tau.hat) -
+  (1 - W) / (1 - cf$W.hat) * (Y - cf$Y.hat + cf$W.hat * tau.hat)
+school.score = t(school.mat) %*% dr.score / school.size
+
+school.X2 = (t(school.mat) %*% X$X2) / school.size
+high.X2 = school.X2 > median(school.X2)
+t.test(school.score[high.X2], school.score[!high.X2])
+
+school.X2.levels = cut(school.X2,
+                       breaks = c(-Inf, quantile(school.X2, c(1/3, 2/3)), Inf))
+summary(aov(school.score ~ school.X2.levels))
+
+```
+
+```{r}
+school.score.XS3.high = t(school.mat) %*% (dr.score * (X$S3 >= 6)) /
+  t(school.mat) %*% (X$S3 >= 6)
+school.score.XS3.low = t(school.mat) %*% (dr.score * (X$S3 < 6)) /
+  t(school.mat) %*% (X$S3 < 6)
+
+plot(school.score.XS3.low, school.score.XS3.high)
+t.test(school.score.XS3.high - school.score.XS3.low)
+
+```
+
+
+## Visualizations and Basic Statistics
+
+```{r}
+pardef = par(mar = c(5, 4, 4, 2) + 0.5, cex.lab = 1.5, cex.axis = 1.5, cex.main = 1.5, cex.sub = 1.5)
+hist(school.score, xlab = "School Treatment Effect Estimate", main = "")
+
+ate.hat = mean(school.score)
+se.hat = sqrt(var(school.score) / (length(school.score) - 1))
+print(paste(round(ate.hat, 3), "+/-", round(1.96 * se.hat, 3)))
+
+
+DF = X
+DF$W.hat = cf$W.hat
+
+pardef = par(mar = c(5, 4, 4, 2) + 0.5, cex.lab = 1.5, cex.axis = 1.5, cex.main = 1.5, cex.sub = 1.5)
+boxplot(W.hat ~ S3, data = DF, ylab = "Propensity Score", xlab = "Student Expectation of Success")
+lines(smooth.spline(X$S3, cf$W.hat), lwd = 2, col = 4)
+
+```
+
+## Analysis Ignoring Clusters
+
+```{r}
+cf.noclust = causal_forest(X[, selected.idx], Y, W,
+                           Y.hat = Y.hat, W.hat = W.hat,
+                           tune.parameters = "all")
+
+ATE.noclust = average_treatment_effect(cf.noclust)
+paste("95% CI for the ATE:", round(ATE.noclust[1], 3),
+      "+/-", round(qnorm(0.975) * ATE.noclust[2], 3))
+
+test_calibration(cf.noclust)
+
+tau.hat.noclust = predict(cf.noclust)$predict
+plot(school.id, tau.hat.noclust)
+
+nfold = 5
+school.levels = unique(school.id)
+cluster.folds = sample.int(nfold, length(school.levels), replace = TRUE)
+
+tau.hat.crossfold = rep(NA, length(Y))
+for (foldid in 1:nfold) {
+  print(foldid)
+  infold = school.id %in% school.levels[cluster.folds == foldid]
+  cf.fold = causal_forest(X[!infold, selected.idx], Y[!infold], W[!infold],
+                          Y.hat = Y.hat[!infold], W.hat = W.hat[!infold],
+                          tune.parameters = "all")
+  pred.fold = predict(cf.fold, X[infold, selected.idx])$predictions
+  tau.hat.crossfold[infold] = pred.fold
+}
+
+cf.noclust.cpy = cf.noclust
+cf.noclust.cpy$predictions = tau.hat.crossfold
+cf.noclust.cpy$clusters = school.id
+test_calibration(cf.noclust.cpy)
+
+Rloss = mean(((Y - Y.hat) - tau.hat * (W - W.hat))^2)
+Rloss.noclust = mean(((Y - Y.hat) - tau.hat.noclust * (W - W.hat))^2)
+Rloss.crossfold = mean(((Y - Y.hat) - tau.hat.crossfold * (W - W.hat))^2)
+
+c(Rloss.noclust - Rloss, Rloss.crossfold - Rloss)
+
+summary(aov(dr.score ~ factor(school.id)))
+
+```
+
+
+## Analysis without Fitting the Propensity Score
+
+```{r}
+cf.noprop = causal_forest(X[, selected.idx], Y, W,
+                          Y.hat = Y.hat, W.hat = mean(W),
+                          tune.parameters = "all",
+                          equalize.cluster.weights = TRUE,
+                          clusters = school.id)
+tau.hat.noprop = predict(cf.noprop)$predictions
+
+ATE.noprop = average_treatment_effect(cf.noprop)
+paste("95% CI for the ATE:", round(ATE.noprop[1], 3),
+      "+/-", round(qnorm(0.975) * ATE.noprop[2], 3))
+
+pardef = par(mar = c(5, 4, 4, 2) + 0.5, cex.lab = 1.5, cex.axis = 1.5, cex.main = 1.5, cex.sub = 1.5)
+plot(tau.hat, tau.hat.noprop,
+     xlim = range(tau.hat, tau.hat.noprop),
+     ylim = range(tau.hat, tau.hat.noprop),
+     xlab = "orthogonalized causal forest estimates",
+     ylab = "non-orthogonalized causal forest")
+abline(0, 1, lwd = 2, lty = 2, col = 4)
+par = pardef
+dev.off()
+
+
+school.X = (t(school.mat) %*% as.matrix(X[, c(4:8, 25:28)])) / school.size
+school.X = data.frame(school.X)
+colnames(school.X) = c("X1", "X2", "X3", "X4", "X5",
+                       "XC.1", "XC.2", "XC.3", "XC.4")
+
+dr.score = tau.hat + W / cf$W.hat * (Y - cf$Y.hat - (1 - cf$W.hat) * tau.hat) -
+  (1 - W) / (1 - cf$W.hat) * (Y - cf$Y.hat + cf$W.hat * tau.hat)
+school.score = t(school.mat) %*% dr.score / school.size
+
+school.forest = regression_forest(school.X, school.score)
+school.pred = predict(school.forest)$predictions
+test_calibration(school.forest)
+
+
+```
+
