@@ -1,0 +1,87 @@
+# BootStrap
+
+## Data
+
+```{julia}
+using CSV
+using DataFrames
+using Statistics
+
+pen = "https://raw.githubusercontent.com/alexanderquispe/CausalAI-Course/main/data/penn_jae.csv"
+data = CSV.read(download(pen), DataFrame)
+```
+
+## Filter
+
+```{julia}
+using DataFrames
+
+data = filter(row -> row.tg in (0, 4), data)
+data.T4 = ifelse.(data.tg .== 4, 1, 0)
+data.log_inuidur1 = log.(data.inuidur1)
+```
+
+## Model
+
+```{julia}
+using GLM
+
+function model_ols(data, formula=@formula(log_inuidur1 ~ T4 + female + black + othrace + dep + q2 + q3 + q4 + q5 + q6 + agelt35 + agegt54 + durable + lusd + husd))
+    md = lm(formula, data)
+    return md
+end
+
+md0 = model_ols(data)
+coeftable(md0)
+```
+
+## Bootstrap
+
+
+```{julia}
+
+n_bootstrap = 1000
+coef_tg = Vector{Float64}(undef, n_bootstrap)
+coef_female = Vector{Float64}(undef, n_bootstrap)
+coef_black = Vector{Float64}(undef, n_bootstrap)
+
+n = nrow(data)
+
+for i in 1:n_bootstrap
+    sample_data = data[rand(1:n, n), :]
+    model_i = model_ols(sample_data)
+    coefs = coef(model_i)[2:4]
+    coef_tg[i] = coefs[1]
+    coef_female[i] = coefs[2]
+    coef_black[i] = coefs[3]
+end
+
+
+se_tg = std(coef_tg)
+se_female = std(coef_female)
+se_black = std(coef_black)
+mean_tg = mean(coef_tg)
+mean_female = mean(coef_female)
+mean_black = mean(coef_black)
+```
+
+## Plots
+
+```{julia}
+using Plots
+
+histogram(coef_tg, label="tg", title="Histogram of TG Coefficients", xlabel="Coefficient", ylabel="Frequency")
+histogram!(coef_female, label="female", title="Histogram of Female Coefficients", xlabel="Coefficient", ylabel="Frequency")
+histogram!(coef_black, label="black", title="Histogram of Black Coefficients", xlabel="Coefficient", ylabel="Frequency")
+```
+
+## Resultados
+
+```{julia}
+results = DataFrame(
+    Variable=["T4 (TG)", "female", "black"],
+    Mean_Coef=[mean_tg, mean_female, mean_black],
+    Bootstrap_SE=[se_tg, se_female, se_black]
+)
+println(results)
+```
