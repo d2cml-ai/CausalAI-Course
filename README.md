@@ -7,7 +7,7 @@ The Tutorials are on Tuesdays 20:00 - 22:00
 Lecturer: \
 Alexander Quispe Rojas
 
-Teaching Assistant: \\
+Teaching Assistant: \
 Rodrigo Grijalba
 Juan Diego Goicochea
 
