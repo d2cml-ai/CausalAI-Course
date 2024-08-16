@@ -4,11 +4,11 @@ This is a repository for the course CausalAI
 The Lectures are on Mondays from 20:00 - 22:00 \\
 The Tutorials are on Tuesdays 20:00 - 22:00
 
-Lecturer: \
+Lecturer: 
 * Alexander Quispe Rojas
 
-Teaching Assistant: \
-* Rodrigo Grijalba \
+Teaching Assistant: 
+* Rodrigo Grijalba 
 * Juan Diego Goicochea
 
 Three Programming Languages:
