@@ -8,7 +8,7 @@ Lecturer: \
 Alexander Quispe Rojas
 
 Teaching Assistant: \
-Rodrigo Grijalba
+Rodrigo Grijalba \
 Juan Diego Goicochea
 
 Three Programming Languages:
