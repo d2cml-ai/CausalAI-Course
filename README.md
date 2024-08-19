@@ -2,7 +2,7 @@
 This is a repository for the course CausalAI
 
 The Lectures are on Mondays from 20:00 - 22:00 \\
-The Tutorials are on Tuesdays 20:00 - 22:00
+The Tutorials are on Thursdays 20:00 - 22:00
 
 Lecturer: 
 * Alexander Quispe Rojas
