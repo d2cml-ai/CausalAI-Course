@@ -1,13 +1,15 @@
 # Causal AI Course
 This is a repository for the course CausalAI
 
-The Lectures are on Tuesdays from 8:30 - 11:30 \\
-The Tutorials are on Friday 08:30 - 10:30.
+The Lectures are on Mondays from 20:00 - 22:00 \\
+The Tutorials are on Thursdays 20:00 - 22:00
 
-Lecturer: \
-Alexander Quispe Rojas
+Lecturer: 
+* Alexander Quispe Rojas
 
-Teaching Assistant: \\
+Teaching Assistant: 
+* Rodrigo Grijalba 
+* Juan Diego Goicochea
 
 Three Programming Languages:
 1. R
@@ -40,13 +42,23 @@ The students will replicate scripts worked in labs and they will work in groups.
 
 | Group_1 | Group_2 | Group_3 | Group_4 | Group_5 | Group_6 |
 |---------|---------|---------|---------|---------|---------|
+|ALVAREZ ZAMUDIO, LUCIANA CAROLINA|RODRIGUEZ LEYTTH, ALEXANDER FABRICIO|SEBASTIAN PALOMINO, FERNANDO ERNESTO|SANCHEZ SALAS, CHARLES GABRIEL|JAIME MARTINEZ, KEVIN OSWALDO|LIZARRAGA NAGAHAMA, SOPHIE NAMIE ANDREA|
+|MEZARINA SANCHEZ, LEIDY MARICIELO|SALAMANCA FERNANDEZ, LUCAS PABLO|GIL ORE, DIEGO RAFAEL|CALDERON CANICOBA, ABRAHAM ALBERTH|SILVA ANDUJAR, NICOLAS|RIEGA NUÑEZ, GABRIEL ANTONIO FERMIN|
+|JANAMPA APARICIO, KARL WILLEM|QUIJADA DIAZ, JARU|SERRANO SALAS, ENRIQUE ALONSO|ESPINOSA CALDERON, MAURICIO GUSTAVO|PALOMINO RUMICHE, ARTURO MANUEL|ALVAREZ ZAMUDIO, LUCIANA CAROLINA|
+|PADILLA AQUISE, ALESSANDRO PIERO|DEL CARPIO CUENCA, GABRIEL SEBASTIAN|PAÑAHUA TITO, LINK LANDERS|CARHUAZ FUSTER, JHANELA LUZ|MORAN TORRES, ALVARO MAURICIO|JAIME MARTINEZ, KEVIN OSWALDO|
+|---------|---------|---------|---------|MELLIZO ANTAZU, MILAGROS ESTEFANY|ESPINOSA CALDERON, MAURICIO GUSTAVO|
+
+<!-- 
+
+| Group_1 | Group_2 | Group_3 | Group_4 | Group_5 | Group_6 |
+|---------|---------|---------|---------|---------|---------|
 | MAGUIÑA MEZA, JOSUE EDUARDO | AYALA CORBACHO, Javier frank | DUBE TORRES, Valerie emily | MENGOA LAYME, FRANCO ALAIN | ALVARADO RONCAL, FRANK LUIS | TRUJILLO PALACIOS, NICOLAS MARTIN |
 | HOYOS MACEDO, Valeria nicole | Huarcaya Mitac, Luis Diego | VILLALBA ORTEGA, Matias Gabriel | TRELLES DERTEANO, Alberto corisongo | BEDIA WARTHON, Jeffry SEBASTIAN CIPRIANI | ROMERO PEREZ, ANDREA NICOLE |
 | Yllu Socualaya, Alvaro Alexander | MAMANI PALOMINO, Janice de Jesus | GUERRERO CUEVA, JUAN MARCOS | ACOSTA CORTEZ, Fernando Javier | Olarte Guevara, Angie SUSSANA | ARIZOLA BLUA, Francisco alonso |
 | CUBAS ALBUJAR, Maria pamela | TOVAR ZAMUDIO, Natalie nicole | GARAY PONTE, Erzo francesco | HORNA MUÑOZ, Gerardo alejandro | MARTEL CERCEDO, Veronika Fernanda | Ruiz Scharff, Mario Aaron |
 
 
-<!-- 
+
 ## Second Cohort, 2022-1
 Group_1 | Group_2 | Group_3 | Group_4
 --------|---------|---------|--------
