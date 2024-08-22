@@ -40,7 +40,7 @@ Every week students have to write a report about a scientific paper. The student
 
 The students will replicate scripts worked in labs and they will work in groups. 
 
-| Group_1 | Group_2 | Group_3 | Group_4 | Group_5 | Group_6 |
+| Group 1 | Group 2 | Group 3 | Group 4 | Group 5 | Group 6 |
 |---------|---------|---------|---------|---------|---------|
 |DEL CARPIO CUENCA, GABRIEL SEBASTIAN|CALDERON CANICOBA, ABRAHAM ALBERTH|RIEGA NUÑEZ, GABRIEL ANTONIO FERMIN|CARHUAZ FUSTER, JHANELA LUZ|LIZARRAGA NAGAHAMA, SOPHIE NAMIE ANDREA|GIL ORE, DIEGO RAFAEL|
 |ESPINOSA CALDERON, MAURICIO GUSTAVO|GARCIA RODRIGUEZ, EMILIO ALONSO|SANCHEZ SALAS, CHARLES GABRIEL|JANAMPA APARICIO, KARL WILLEM|PALOMINO RUMICHE, ARTURO MANUEL|JULCA SIESQUEN, MARCK ANTONY|
