@@ -1,4 +1,3 @@
-Inference for high-dimensional sparse econometric models
 The paper addresses the research question of how to optimize the process of estimation and inference in high-dimensional econometric models, where there are many potential explanatory variables, but only a small subset significantly influences the results. 
 It focuses on effective variable and instrument selection in the context of economic growth analysis and explores methods to handle high-dimensional data with numerous weak signals.
 It has leverages the sparsity assumption, which enhances estimation efficiency by focusing on a small subset of relevant variables among many potential regressors.
