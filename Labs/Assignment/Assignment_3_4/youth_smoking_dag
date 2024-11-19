@@ -1,0 +1,14 @@
+digraph "Youth Smoking and Lung Function" {
+	rankdir=LR size=8
+	Smoking [label="Smoking Behavior (Treatment)"]
+	LungFunction [label="Forced Respiratory Volume (Outcome)"]
+	Age [label=Age]
+	Height [label=Height]
+	Sex [label=Sex]
+	Age -> Smoking
+	Age -> LungFunction
+	Sex -> Smoking
+	Sex -> Height
+	Height -> LungFunction
+	Smoking -> LungFunction
+}
