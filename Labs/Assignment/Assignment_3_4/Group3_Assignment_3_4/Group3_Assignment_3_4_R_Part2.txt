@@ -1,0 +1,126 @@
+# Cargar paquetes necesarios
+install.packages("tidyverse")
+#if (!requireNamespace("caret")) install.packages("caret")
+#if (!requireNamespace("rpart")) install.packages("rpart")
+
+library(tidyverse)
+library(caret)
+library(rpart)
+
+# Leer el archivo proporcionado
+
+data2_ <- read.csv("D:/DESCARGAS/data2_.csv", header = TRUE, sep = ",")
+View(data2_)
+
+# 1. Preparar los datos
+# Convertir variables categóricas en dummies
+data <- data %>%
+  mutate(across(where(is.character), as.factor)) %>%
+  mutate(across(where(is.factor), ~ model.matrix(~ . - 1)[, ]))
+
+# Eliminar observaciones con valores faltantes
+data <- na.omit(data)
+
+# Dividir los datos en conjuntos de entrenamiento (90%) y prueba (10%)
+set.seed(123)
+train_index <- createDataPartition(data$salary, p = 0.9, list = FALSE)
+train_set <- data[train_index, ]
+test_set <- data[-train_index, ]
+
+# 2. Regresión OLS con Bootstrap
+# Ajustar el modelo OLS en el conjunto de entrenamiento
+ols_model <- lm(salary ~ ., data = train_set)
+
+# Coeficientes iniciales
+beta_hat <- coef(ols_model)
+
+# Crear 10,000 muestras bootstrap
+set.seed(123)
+n_boot <- 10000
+boot_coefs <- matrix(NA, nrow = n_boot, ncol = length(beta_hat))
+colnames(boot_coefs) <- names(beta_hat)
+
+for (i in 1:n_boot) {
+  boot_indices <- sample(1:nrow(train_set), size = nrow(train_set), replace = TRUE)
+  boot_sample <- train_set[boot_indices, ]
+  boot_model <- lm(salary ~ ., data = boot_sample)
+  boot_coefs[i, ] <- coef(boot_model)
+}
+
+# Calcular los intervalos de confianza al 95%
+beta_lower <- apply(boot_coefs, 2, quantile, probs = 0.025)
+beta_upper <- apply(boot_coefs, 2, quantile, probs = 0.975)
+
+# Resumen de resultados
+boot_summary <- data.frame(
+  Coeficiente = beta_hat,
+  IC_Inf = beta_lower,
+  IC_Sup = beta_upper
+)
+print(boot_summary)
+
+# Predicciones en el conjunto de prueba
+predictions_ols <- predict(ols_model, newdata = test_set)
+
+# Calcular el MSE fuera de muestra para OLS
+mse_ols <- mean((test_set$salary - predictions_ols)^2)
+cat("MSE fuera de muestra para OLS:", mse_ols, "\n")
+
+# 3. Árbol de Decisión
+# Ajustar un árbol de decisión
+tree_model <- rpart(
+  salary ~ ., 
+  data = train_set, 
+  method = "anova",
+  control = rpart.control(cp = 0)
+)
+
+# Determinar el mejor parámetro de poda (cp)
+best_cp <- tree_model$cptable[which.min(tree_model$cptable[,"xerror"]), "CP"]
+
+# Podar el árbol
+pruned_tree <- prune(tree_model, cp = best_cp)
+
+# Predicciones en el conjunto de prueba
+predictions_tree <- predict(pruned_tree, newdata = test_set)
+
+# Calcular el MSE fuera de muestra para el árbol de decisión
+mse_tree <- mean((test_set$salary - predictions_tree)^2)
+cat("MSE fuera de muestra para el Árbol de Decisión:", mse_tree, "\n")
+
+# 4. Comparar Modelos
+cat("Comparación de MSE:\n")
+cat("OLS:", mse_ols, "\n")
+cat("Árbol de Decisión:", mse_tree, "\n")
+
+if (mse_ols < mse_tree) {
+  cat("El modelo de OLS tiene mejor precisión predictiva.\n")
+} else {
+  cat("El Árbol de Decisión tiene mejor precisión predictiva.\n")
+}
+
+# Opcional: Visualización de Resultados
+# Intervalos de confianza
+library(ggplot2)
+boot_summary$Variable <- rownames(boot_summary)
+ggplot(boot_summary, aes(x = Variable, y = Coeficiente)) +
+  geom_point(size = 3, color = "blue") +
+  geom_errorbar(aes(ymin = IC_Inf, ymax = IC_Sup), width = 0.2, color = "red") +
+  coord_flip() +
+  labs(
+    title = "Intervalos de Confianza (95%) de los Coeficientes de OLS",
+    x = "Variables",
+    y = "Coeficiente"
+  ) +
+  theme_minimal()
+
+# Distribución de residuos
+residuals_ols <- test_set$salary - predictions_ols
+ggplot(data.frame(Residuos = residuals_ols), aes(x = Residuos)) +
+  geom_histogram(binwidth = 500, fill = "blue", color = "white", alpha = 0.7) +
+  labs(
+    title = "Distribución de los Residuos del Modelo OLS",
+    x = "Residuos",
+    y = "Frecuencia"
+  ) +
+  theme_minimal()
