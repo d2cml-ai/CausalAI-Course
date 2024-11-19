@@ -1,0 +1,15 @@
+digraph {
+	node [fixedsize=true shape=circle width=0.7]
+	X [label=Smoking]
+	Y [label="Lung Function"]
+	Age [label=Age]
+	Height [label=Height]
+	Sex [label=Sex]
+	X -> Y
+	Age -> X
+	Height -> X
+	Sex -> X
+	Age -> Y
+	Height -> Y
+	Sex -> Y
+}
