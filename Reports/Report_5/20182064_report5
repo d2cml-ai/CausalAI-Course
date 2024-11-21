@@ -1,0 +1,33 @@
+•	What is the paper's research question?
+
+In the context of semiparametric models, where the parameter space usually has classical restrictions such as low entropy, a practical problem arises. The conditions for statistical inference on low-dimensional parameters are not validated when there are high-dimensional nuisance parameters. This represents a central challenge in modern econometrics: how to perform inference on low-dimensional parameters \theta_0 when the nuisance parameters \eta_0 have high complexity.
+
+In this vein, the following question arises: How can we ensure that the estimators of \theta_0 are efficient and robust against the bias and overfitting introduced when using machine learning methods to estimate \eta_0?
+
+To answer this question, and as mentioned in the paper, the authors propose the Double/Debiased Machine Learning (DML) Method, which combines Neyman-orthogonal moments and the cross-fitting method to address this issue, in addition to using machine learning. The goal is to reduce the impact of bias in the estimation of \eta_0, improving valid and efficient statistical inference even in scenarios where traditional methods might fail.
+
+•	What are the strengths and weaknesses of the paper's approach to answering that question?
+
+The methodology proposed in the paper offers an innovative and robust approach to solving the identified problem. Among its main strengths is its ability to integrate modern machine learning tools, such as random forests and lasso, into the causal inference framework without compromising the desired statistical properties.
+
+First, the use of Neyman-orthogonal moments represents a key contribution by ensuring that errors in the estimation of the nuisance parameters \eta_0 have minimal impact on the estimator of \theta_0. This allows the method to maintain 
+\sqrt{N} consistency and asymptotic normality even in high-dimensional contexts. Second, the use of cross-fitting ensures that overfitting does not affect inference by splitting the data into subsets that separate the auxiliary estimation from the main parameters. This strengthens the robustness of the method and broadens its practical applicability to a variety of scenarios, such as partially linear regressions and instrumental variable models.
+
+However, the approach could show weaknesses depending on the quality of the results, as they rely heavily on the auxiliary ML models and the proper choice of their hyperparameters. Furthermore, if cross-fitting is applied to dependent data, such as time series, its applicability would not be appropriate. This limits the use of the methodology to certain research areas. Even so, I would argue that it is highly applicable in financial topics or public policy according to contextual characteristics as mentioned by the author. Added to this is the high computational requirement to execute the algorithm.
+
+Despite these limitations, the proposed method represents a significant advance by addressing problems that traditional methods cannot handle, making DML a powerful tool for high-complexity contexts.
+
+•	How does this paper advance knowledge about the question, i.e., what is the contribution? (If you can't find any contributions, ask yourself why the editor and referees decided to publish the paper.)
+
+The paper advances knowledge by providing a practical and theoretically solid solution for performing causal inference in semiparametric models with high-complexity nuisance parameters. Its main contribution lies in the formulation of the Double/Debiased Machine Learning (DML) method, which integrates advanced machine learning techniques into statistical inference while preserving fundamental properties such as \sqrt{N} consistency and the asymptotic normality of the estimator 
+\theta_0.
+
+In addition to its technical innovation, the paper represents a significant extension of classical approaches such as Robinson’s (1988) partially linear model and traditional instrumental variable methods. This makes it a more general and adaptable methodological framework, suitable for applications in high-dimensional environments where traditional models would be ineffective. The paper not only answers the question of how to handle bias and regularization in semiparametric models but also establishes a framework for future research and practical applications.
+
+Another important contribution is the empirical demonstration of the method in relevant practical scenarios, such as the estimation of average treatment effects (ATE), average treatment effects on the treated (ATT), and local average treatment effects (LATE). These applications show not only the feasibility of the approach but also its utility for addressing questions of interest in contexts such as public policy evaluation and complex structural analysis. In this sense, DML is an essential tool for causal inference in an era of massive data.
+
+•	What would be one or two valuable, specific next steps to advance this question?
+
+The methodological framework presented in the paper provides a solid foundation for future research and extensions. An important first step, as previously mentioned, would be to extend the DML method to contexts with data dependency, such as time series, spatial data, or networks. Currently, the cross-fitting approach assumes independence between data partitions, a condition that does not hold in these scenarios. Adapting Neyman-orthogonal moments and the general methodology to dependency structures would make the methodology more applicable.
+
+Finally, another promising direction would be to investigate the behavior of DML under extreme conditions, such as small sample sizes or high multicollinearity among covariates. These situations could reveal practical limitations of the approach, offering opportunities to improve its design. Additionally, the development of automated strategies for hyperparameter selection in the auxiliary machine learning models would contribute to the practical implementation of the method. This could include the use of advanced optimization techniques, such as Bayesian methods or adaptive cross-validation.
