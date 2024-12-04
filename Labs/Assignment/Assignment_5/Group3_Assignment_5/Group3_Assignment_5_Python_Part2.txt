@@ -1,0 +1,88 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import mean_squared_error
+from doubleml import DoubleMLData, DoubleMLPLR
+
+
+experimental_control = pd.read_csv("/mnt/data/experimental_control.csv")
+biased_control = pd.read_csv("/mnt/data/biased_control.csv")
+
+
+experimental_control['group'] = 'treatment'
+biased_control['group'] = 'control'
+
+
+columns = ['treat', 'age', 'educ', 'black', 'hisp', 'marr', 'nodegree', 're74', 're75', 're78', 'group']
+observational_data = pd.concat([experimental_control[columns], biased_control[columns]], ignore_index=True)
+
+
+Y = observational_data['re78']  # Variable de resultado
+D = observational_data['treat']  # Variable de tratamiento
+X = observational_data.drop(columns=['re78', 'treat', 'group'])  # Covariables predictoras
+
+
+print("Estadísticas descriptivas para el grupo de tratamiento:")
+print(observational_data[observational_data['group'] == 'treatment'][['age', 'educ', 're78']].describe())
+
+print("\nEstadísticas descriptivas para el grupo de control:")
+print(observational_data[observational_data['group'] == 'control'][['age', 'educ', 're78']].describe())
+
+# Visualización: Distribución de edad por grupo
+plt.figure(figsize=(8, 5))
+observational_data.groupby('group')['age'].plot(kind='hist', bins=20, alpha=0.5, legend=True)
+plt.title('Distribución de Edad por Grupo')
+plt.xlabel('Edad')
+plt.ylabel('Frecuencia')
+plt.legend(['Control', 'Tratamiento'])
+plt.show()
+
+# Visualización: Ingreso previo por grupo
+plt.figure(figsize=(8, 5))
+observational_data.boxplot(column='re78', by='group', grid=False)
+plt.title('Ingreso Previo por Grupo')
+plt.suptitle('')
+plt.xlabel('Grupo')
+plt.ylabel('Ingreso en 1978')
+plt.show()
+
+# Cálculo del ATE con Diferencia Simple de Medias
+treatment_group = observational_data[observational_data['group'] == 'treatment']['re78']
+control_group = observational_data[observational_data['group'] == 'control']['re78']
+
+ate_smd = treatment_group.mean() - control_group.mean()
+print(f"El ATE (diferencia simple de medias) es: {round(ate_smd, 2)}")
+
+
+# objeto de datos para DoubleML
+dml_data = DoubleMLData(observational_data, y_col='re78', d_cols='treat')
+
+# Modelos de predicción para D (tratamiento) y Y (resultado)
+ml_g = RandomForestRegressor(n_estimators=100, max_depth=5, random_state=1)
+ml_m = RandomForestRegressor(n_estimators=100, max_depth=5, random_state=1)
+
+# Ajustar modelo DML
+dml_model = DoubleMLPLR(dml_data, ml_g, ml_m)
+dml_model.fit()
+
+# Resultados 
+ate_dml = dml_model.coef
+print(f"El ATE ajustado con DML es: {round(ate_dml, 2)}")
+
+# Evaluación de precisión (MSE)
+mse_d = mean_squared_error(D, dml_model._dml_data.predict_d())
+mse_y = mean_squared_error(Y, dml_model._dml_data.predict_y())
+
+print(f"MSE para D: {round(mse_d, 2)}")
+print(f"MSE para Y: {round(mse_y, 2)}")
+
+# Efectos Heterogéneos
+treatment_effects = dml_model.predict(X)
+
+plt.figure(figsize=(8, 5))
+plt.scatter(observational_data['age'], treatment_effects, alpha=0.5)
+plt.title('Efectos Heterogéneos Estimados por Edad')
+plt.xlabel('Edad')
+plt.ylabel('Efecto del Tratamiento Estimado')
+plt.show()
