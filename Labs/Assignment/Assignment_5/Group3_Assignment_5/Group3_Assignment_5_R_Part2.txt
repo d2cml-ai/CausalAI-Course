@@ -1,0 +1,82 @@
+
+install.packages(c("readr", "DoubleML", "ggplot2", "dplyr", "randomForest"))
+library(readr)        # Lectura de datos
+library(DoubleML)     # Implementación del método DML
+library(ggplot2)      # Visualización
+library(dplyr)        # Manipulación de datos
+library(randomForest) # Modelos de predicción para DML
+
+
+experimental_control <- read_csv("ruta/experimental_control.csv")
+biased_control <- read_csv("ruta/biased_control.csv")
+head(experimental_control)
+head(biased_control)
+
+#  tratamiento y control
+# Mantener las mismas columnas para compatibilidad
+experimental_control$group <- "treatment"
+biased_control$group <- "control"
+
+
+observational_data <- bind_rows(
+  experimental_control %>% select(treat, age, educ, black, hisp, marr, nodegree, re74, re75, re78, group),
+  biased_control %>% select(treat, age, educ, black, hisp, marr, nodegree, re74, re75, re78, group)
+)
+
+# variables
+Y <- observational_data$re78       # Resultado (ingreso en 1978)
+D <- observational_data$treat      # Tratamiento (1 = participó, 0 = no participó)
+X <- observational_data %>% select(-re78, -treat, -group)  # Covariables predictoras
+
+#Comparaciones 
+# Resumen estadístico de tres variables: age, educ, y re78
+summary(observational_data %>% filter(group == "treatment") %>% select(age, educ, re78))
+summary(observational_data %>% filter(group == "control") %>% select(age, educ, re78))
+
+# Visualización: Distribución de edad
+ggplot(observational_data, aes(x = age, fill = group)) +
+  geom_histogram(position = "dodge", bins = 20) +
+  labs(title = "Distribución de Edad por Grupo", x = "Edad", fill = "Grupo")
+
+# Visualización: Ingreso previo por grupo
+ggplot(observational_data, aes(x = group, y = re78, fill = group)) +
+  geom_boxplot() +
+  labs(title = "Ingreso Previo por Grupo", x = "Grupo", y = "Ingreso en 1978")
+
+# Cálculo del ATE 
+treatment_group <- observational_data %>% filter(group == "treatment") %>% pull(re78)
+control_group <- observational_data %>% filter(group == "control") %>% pull(re78)
+
+ate_smd <- mean(treatment_group) - mean(control_group)
+print(paste("El ATE (diferencia simple de medias) es:", round(ate_smd, 2)))
+
+#  Double ML 
+# Crear objeto de datos para DoubleML
+dml_data <- DoubleMLData$new(data = observational_data, y_col = "re78", d_cols = "treat")
+
+# modelos de predicción para tratamiento (D) y resultado (Y)
+ml_g <- randomForest
+ml_m <- randomForest
+
+# Ajustar modelo DML
+dml_model <- DoubleMLPLR$new(dml_data, ml_g, ml_m)
+dml_model$fit()
+
+# Resultados 
+ate_dml <- dml_model$coef
+print(paste("El ATE ajustado con DML es:", round(ate_dml, 2)))
+
+#  (MSE)
+mse_d <- mean((D - predict(dml_model$ml_g_fit, as.matrix(X)))^2)
+mse_y <- mean((Y - predict(dml_model$ml_m_fit, as.matrix(X)))^2)
+
+print(paste("MSE para D:", round(mse_d, 2)))
+print(paste("MSE para Y:", round(mse_y, 2)))
+
+# Efectos Heterogéneos
+treatment_effects_dml <- predict(dml_model, as.matrix(X))
+
+ggplot(observational_data, aes(x = age, y = treatment_effects_dml)) +
+  geom_point() +
+  labs(title = "Efectos Heterogéneos Estimados por Edad",
+       x = "Edad", y = "Efecto del Tratamiento")
