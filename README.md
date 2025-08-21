@@ -1,15 +1,15 @@
 # Causal AI Course
 This is a repository for the course CausalAI
 
-The Lectures are on Mondays from 20:00 - 22:00 \\
-The Tutorials are on Thursdays 20:00 - 22:00
+The Lectures are on Thursdays from 07:30 - 10:20 \\
+The Tutorials are on Thursdays 11:30 - 13:30
 
 Lecturer: 
 * Alexander Quispe Rojas
 
 Teaching Assistant: 
-* Rodrigo Grijalba 
-* Juan Diego Goicochea
+* Alberto Trelles
+* Valeria Hoyos
 
 Three Programming Languages:
 1. R
@@ -40,6 +40,17 @@ Every week students have to write a report about a scientific paper. The student
 
 The students will replicate scripts worked in labs and they will work in groups. 
 
+| Group 1 | Grupo 2 | Group 3 | Grupo 4 | Grupo 5 | Group 6 | Group 7 |
+|---------|---------|---------|---------|---------|---------|---------|
+|BUENDIA UGARRIZA, MATIAS ALONSO|GUTIERREZ CANTORIN, ARIANA MARISSA|MAMANI VILA, DAFNE ANDREA|ARICA MAURICIO, VICTOR|SAAVEDRA ALVA, DIEGO GABRIEL|BARRAZA RATACHI, JOHN SVANTE|MONTAÑEZ MADUEÑO, ABIGAIL MARIAM|
+|LAU QUIROZ, Victor enrique|ORTIZ CASTIGLIONI, Milagros leticia|CONDORI ANCCASI, Fernando alonso|GOMEZ LEON, ALEXANDER RONALD|Chipana Cangana, Leydi Conzuelo|FLORES BENITES, Carlos alberto|ARTEAGA TRUJILLO, CAMILA FERNANDA|
+|SOTO TICSE, ANDRES JOAQUIN|FLORES CONTRERAS, David Tito|RATTO YAÑEZ, Romina maria|TREJO ROSALES, JULIO CESAR|PAUCAR TORRES, CARLOS FABRIZIO|LAZO LEONARDO, MILAGROS GABRIELA|MENGOA LAYME, FRANCO ALAIN|
+|SACO ALVARADO, Gabriel andreas|BOLO AÑORGA, CHRISTOPHER ANTONY|Baudouin Palomino, Ariana Antoinette|AMAYA TORRES, Joseph william| . | . | . |  
+
+
+<!--
+
+## Fourth Cohort, 2024-2
 | Group 1 | Group 2 | Group 3 | Group 4 | Group 5 |
 |---------|---------|---------|---------|---------|
 |DEL CARPIO CUENCA, GABRIEL SEBASTIAN|GARCIA RODRIGUEZ, EMILIO ALONSO|CALDERON CANICOBA, ABRAHAM ALBERTH|JANAMPA APARICIO, KARL WILLEM|CARHUAZ FUSTER, JHANELA LUZ|
@@ -49,11 +60,7 @@ The students will replicate scripts worked in labs and they will work in groups.
 |QUISPE ROBLADILLO, ALMENDRA VALERIA|SILVA ANDUJAR, NICOLAS|SERRANO SALAS, ENRIQUE ALONSO|RODRIGUEZ LEYTTH, ALEXANDER FABRICIO|SANCHEZ SALAS, CHARLES GABRIEL|
 
 
-
-
-
-<!-- 
-
+## Third Cohort, 2024-1
 | Group_1 | Group_2 | Group_3 | Group_4 | Group_5 | Group_6 |
 |---------|---------|---------|---------|---------|---------|
 | MAGUIÑA MEZA, JOSUE EDUARDO | AYALA CORBACHO, Javier frank | DUBE TORRES, Valerie emily | MENGOA LAYME, FRANCO ALAIN | ALVARADO RONCAL, FRANK LUIS | TRUJILLO PALACIOS, NICOLAS MARTIN |
