@@ -40,7 +40,7 @@ Every week students have to write a report about a scientific paper. The student
 
 The students will replicate scripts worked in labs and they will work in groups. 
 
-| Group 1 | Grupo 2 | Group 3 | Grupo 4 | Grupo 5 | Group 6 | Group 7 |
+| Group 1 | Group 2 | Group 3 | Group 4 | Group 5 | Group 6 | Group 7 |
 |---------|---------|---------|---------|---------|---------|---------|
 |BUENDIA UGARRIZA, MATIAS ALONSO|GUTIERREZ CANTORIN, ARIANA MARISSA|MAMANI VILA, DAFNE ANDREA|ARICA MAURICIO, VICTOR|SAAVEDRA ALVA, DIEGO GABRIEL|BARRAZA RATACHI, JOHN SVANTE|MONTAÑEZ MADUEÑO, ABIGAIL MARIAM|
 |LAU QUIROZ, Victor enrique|ORTIZ CASTIGLIONI, Milagros leticia|CONDORI ANCCASI, Fernando alonso|GOMEZ LEON, ALEXANDER RONALD|Chipana Cangana, Leydi Conzuelo|FLORES BENITES, Carlos alberto|ARTEAGA TRUJILLO, CAMILA FERNANDA|
