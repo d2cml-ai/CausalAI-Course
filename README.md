@@ -40,12 +40,12 @@ Every week students have to write a report about a scientific paper. The student
 
 The students will replicate scripts worked in labs and they will work in groups. 
 
-| Group 1 | Group 2 | Group 3 | Group 4 | Group 5 | Group 6 | Group 7 |
-|---------|---------|---------|---------|---------|---------|---------|
-|BUENDIA UGARRIZA, MATIAS ALONSO|GUTIERREZ CANTORIN, ARIANA MARISSA|MAMANI VILA, DAFNE ANDREA|ARICA MAURICIO, VICTOR|SAAVEDRA ALVA, DIEGO GABRIEL|BARRAZA RATACHI, JOHN SVANTE|MONTAÑEZ MADUEÑO, ABIGAIL MARIAM|
-|LAU QUIROZ, Victor enrique|ORTIZ CASTIGLIONI, Milagros leticia|CONDORI ANCCASI, Fernando alonso|GOMEZ LEON, ALEXANDER RONALD|Chipana Cangana, Leydi Conzuelo|FLORES BENITES, Carlos alberto|ARTEAGA TRUJILLO, CAMILA FERNANDA|
-|SOTO TICSE, ANDRES JOAQUIN|FLORES CONTRERAS, David Tito|RATTO YAÑEZ, Romina maria|TREJO ROSALES, JULIO CESAR|PAUCAR TORRES, CARLOS FABRIZIO|LAZO LEONARDO, MILAGROS GABRIELA|MENGOA LAYME, FRANCO ALAIN|
-|SACO ALVARADO, Gabriel andreas|BOLO AÑORGA, CHRISTOPHER ANTONY|Baudouin Palomino, Ariana Antoinette|AMAYA TORRES, Joseph william| . | . | . |  
+| Group 1 | Group 2 | Group 3 | Group 4 | Group 5 | Group 6 |
+|---------|---------|---------|---------|---------|---------|
+|BUENDIA UGARRIZA, MATIAS ALONSO|GUTIERREZ CANTORIN, ARIANA MARISSA|MAMANI VILA, DAFNE ANDREA|ARICA MAURICIO, VICTOR|SAAVEDRA ALVA, DIEGO GABRIEL|BARRAZA RATACHI, JOHN SVANTE|
+|LAU QUIROZ, Victor enrique|ORTIZ CASTIGLIONI, Milagros leticia|CONDORI ANCCASI, Fernando alonso|GOMEZ LEON, ALEXANDER RONALD|Chipana Cangana, Leydi Conzuelo|FLORES BENITES, Carlos alberto|
+|SOTO TICSE, ANDRES JOAQUIN|FLORES CONTRERAS, David Tito|RATTO YAÑEZ, Romina maria|TREJO ROSALES, JULIO CESAR|PAUCAR TORRES, CARLOS FABRIZIO|LAZO LEONARDO, MILAGROS GABRIELA|
+|SACO ALVARADO, Gabriel andreas|BOLO AÑORGA, CHRISTOPHER ANTONY|Baudouin Palomino, Ariana Antoinette|AMAYA TORRES, Joseph william|ARTEAGA TRUJILLO, CAMILA FERNANDA|MENGOA LAYME, FRANCO ALAIN|
 
 
 <!--
